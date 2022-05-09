@@ -1,10 +1,16 @@
 import React from "react";
-import NavigationUnlog from "../components/NavigationUnlog";
+import Footer from "../components/Footer";
+import Logo from "../components/Logo";
+import Navigation from "../components/Navigation";
 
 const Signup = () => {
   return (
     <div>
-      <NavigationUnlog />
+      <header>
+        <Logo />
+        <Navigation />
+      </header>
+      <Footer />
     </div>
   );
 };

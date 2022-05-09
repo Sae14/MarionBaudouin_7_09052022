@@ -1,10 +1,18 @@
 import React from "react";
-import NavigationUnlog from "../components/NavigationUnlog";
+import Footer from "../components/Footer";
+import Logo from "../components/Logo";
+import Navigation from "../components/Navigation";
 
 const Signin = () => {
-  <div>
-    <NavigationUnlog />
-  </div>;
+  return (
+    <div>
+      <header>
+        <Logo />
+        <Navigation />
+      </header>
+      <Footer />
+    </div>
+  );
 };
 
 export default Signin;

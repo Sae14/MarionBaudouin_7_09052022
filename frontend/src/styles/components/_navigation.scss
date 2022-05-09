@@ -1,0 +1,37 @@
+.navigation {
+    ul {
+        display: flex;
+        margin: 30px;
+        a {
+            text-decoration: none;
+            margin: 20px;
+            
+            li {
+                color: $color-text;
+                transition: 0.2s;
+                cursor: pointer;
+                padding-bottom: 15px;
+
+                &:hover {
+                    border-bottom: 3px solid $color-text; 
+                    padding-bottom: 12px;
+                }
+            }
+        }
+
+        .nav-active {
+            position: relative;
+
+            &::after {
+                content: "";
+                height: 3px;
+                width: 100%;
+                background: $color-text;
+                position: absolute;
+                border-radius: 10px;
+                bottom: 0px;
+                left: 0;
+            }
+        }
+    }
+}
