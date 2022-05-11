@@ -3,13 +3,19 @@
   src: url(../assets/fonts/Roboto-Medium.ttf);
 }
 
+@font-face {
+  font-family: "font-2";
+  src: url(../assets/fonts/Roboto-Regular.ttf);
+}
+
 $font-1: "font-1", sans-serif;
+$font-2: "font-2", sans-serif;
 
 $color-main: #8CB8F2;
 $color-text: #292929;
 $color-action: #FFAB22;
 $color-background-main: #FFFFFF;
-$color-background-darker: #EDEDED;
+$color-background-darker: #e4dcdc;
 
 * {
     padding: 0;
@@ -32,4 +38,8 @@ header {
   background-color: $color-main;
   align-items:center;
   padding: 0 30px;
+}
+
+h1, h2, h3, h4 {
+  font-family: $font-2;
 }
