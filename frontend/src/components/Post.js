@@ -48,7 +48,13 @@ const Post = ({ post }) => {
       ) : (
         <p>{editContent ? editContent : post.content}</p>
       )}
+
       <img src={post.imageurl} alt=""></img>
+
+      <div className="count-container">
+        <p>NombreLikes :{/* donnée dynamique de table like</p> */} </p>
+        <p>NombreComs :{/* donnée dynamique de table com</p> */} </p>
+      </div>
       <div className="btn-container">
         <button>Aimer</button>
         <button>Commenter</button>

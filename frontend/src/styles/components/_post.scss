@@ -1,0 +1,31 @@
+.post {
+    margin: 25px 10px;
+    background-color: $color-background-darker;
+    box-shadow: 3px 3px 6px rgba(15, 55, 71, 0.1);
+    border-radius: 7px;
+    padding: 20px;
+    width: 700px;
+
+    .post-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+
+        img {
+       max-height: 350px;
+       max-width: 100%;
+       object-fit: cover;
+       object-position: center;
+       margin: 15px 0;
+       border-radius: 7px;
+       border: 1px solid $color-main;
+       box-shadow: 3px 3px 6px rgba(15, 55, 71, 0.1);
+        }
+    
+    textarea {
+        width: 100%;
+        resize: none;
+        height: 70px;
+    }
+}

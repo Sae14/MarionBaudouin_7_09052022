@@ -2,7 +2,8 @@
     display: flex;
     justify-content: space-around;
     background-color: $color-main;
-
+    border-top: 3px ridge $color-background-darker;
+    padding: 15px;
     img {
         height: 45px;
     }
