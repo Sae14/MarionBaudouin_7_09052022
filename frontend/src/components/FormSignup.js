@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import axios from "axios";
 
 const FormSignup = () => {
-  const [email, setEmail] = useState([""]);
-  const [pseudo, setPseudo] = useState([""]);
-  const [password, setPassword] = useState([""]);
+  const [email, setEmail] = useState("");
+  const [pseudo, setPseudo] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleRegister = (e) => {
     e.preventDefault();

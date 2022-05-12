@@ -39,6 +39,7 @@ const Post = ({ post }) => {
         <h3>{post.author}</h3>
         <p>Posté le {dateFormater(post.date)}</p>
       </div>
+
       {isEditing ? (
         <textarea
           defaultValue={editContent ? editContent : post.content}
@@ -48,13 +49,13 @@ const Post = ({ post }) => {
       ) : (
         <p>{editContent ? editContent : post.content}</p>
       )}
-
-      <img src={post.imageurl} alt=""></img>
+      {post.file ? <img src={post.file} alt=""></img> : null}
 
       <div className="count-container">
         <p>NombreLikes :{/* donnée dynamique de table like</p> */} </p>
         <p>NombreComs :{/* donnée dynamique de table com</p> */} </p>
       </div>
+
       <div className="btn-container">
         <button>Aimer</button>
         <button>Commenter</button>

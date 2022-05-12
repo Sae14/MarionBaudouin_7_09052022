@@ -8,6 +8,7 @@ import Post from "../components/Post";
 const Home = () => {
   const [postsData, setPostsData] = useState([]);
   const [content, setContent] = useState("");
+  const [file, setFile] = useState();
 
   const getData = () => {
     axios
@@ -17,21 +18,42 @@ const Home = () => {
 
   useEffect(() => getData(), []);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit =
+    // async
+    (e) => {
+      e.preventDefault();
 
-    // structure de contrôle
+      if (content || file) {
+        const data = {
+          author: "Alix",
+          content,
+          date: Date.now(),
+        };
 
-    const data = {
-      // vérif user et image
-      content,
-      date: Date.now(),
+        // const data = new FormData();
+        // data.append("content", content);
+        // data.append("date", Date.now());
+        // if (file) data.append("file", file);
+
+        // await
+        axios.post("http://localhost:3004/posts", data).then(() => {
+          resetPost();
+          getData();
+        });
+      } else {
+        alert("Veuillez ajouter un message et/ou une image");
+      }
     };
 
-    axios.post("http://localhost:3004/posts", data).then(() => {
-      setContent("");
-      getData();
-    });
+  const handlePicture = (e) => {
+    setFile(URL.createObjectURL(e.target.files[0]));
+    //setFile(e.target.files[0]);
+  };
+
+  const resetPost = () => {
+    setContent("");
+    setFile("");
+    //setPicture(URL.revokeObjectURL);
   };
 
   return (
@@ -40,7 +62,7 @@ const Home = () => {
         <Logo />
         <Navigation />
       </header>
-      <h1>Accueil</h1>
+      <h2>Accueil</h2>
       <div className="home-post-posts-container">
         <div className="form-container">
           <form onSubmit={(e) => handleSubmit(e)}>
@@ -49,18 +71,23 @@ const Home = () => {
               onChange={(e) => setContent(e.target.value)}
               value={content}
             ></textarea>
+
             <div className="createpost-inputs-container">
-              <label htmlFor="file">Voulez-vous ajouter une image ?</label>
               <input
                 type="file"
                 name="file"
                 id="file"
                 accept=".png, .jpg, .jpeg, .gif"
+                onChange={(e) => handlePicture(e)}
               />
+              {content || file ? (
+                <button onClick={resetPost}>Reset</button>
+              ) : null}
               <input type="submit" value="Publier" />
             </div>
           </form>
         </div>
+
         <section className="posts-container">
           {postsData
             .sort((a, b) => b.date - a.date)

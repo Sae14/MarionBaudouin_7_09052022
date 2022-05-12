@@ -1,5 +1,5 @@
 .home {
-    h1 {
+    h2 {
         margin: 15px auto;
         width: 80px;
     }
@@ -40,6 +40,20 @@
                         border: 2px solid $color-main;
                         transition: 0.4s;
        
+                        &:hover {
+                            box-shadow: 2px 2px 8px $color-main;
+                        }
+                    }
+
+                    button {
+                        cursor: pointer;
+                        background-color: $color-action;
+                        border-radius: 5px;
+                        border: 2px solid $color-main;
+                        padding: 7px;
+                        font-weight: 600;
+                        transition: 0.4s;
+
                         &:hover {
                             box-shadow: 2px 2px 8px $color-main;
                         }

@@ -1,0 +1,27 @@
+// "pseudo": "alix",
+//       "mail": "alix.duchamp@gmail.com",
+//       "password": "blouhachecrypt",
+//       "role": "employe",
+//       "bio": "coucou",
+//       "id": 1
+
+.profile-page {
+
+    h2 {
+        width: 80px;
+        margin: 15px auto;
+    }
+
+.profile-container {
+    background-color: $color-background-darker;
+    margin: 30px auto;
+    padding: 40px;
+    width: 600px;
+    height: 500px;
+    border-radius: 8px;
+
+    h3 {
+        margin-bottom: 35px;
+    }
+}
+}
