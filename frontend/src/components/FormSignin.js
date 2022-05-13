@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const FormSignin = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [token, setToken] = useState(null);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -13,9 +16,16 @@ const FormSignin = () => {
       password,
     };
 
-    axios.post("http://localhost:3004/users", data).then(() => {
-      setEmail("");
-      setPassword("");
+    axios.post("http://localhost:3004/users", data).then((res) => {
+      setToken(res.data.mytoken);
+      if (token) {
+        Storage.setItem("token", token);
+        setEmail("");
+        setPassword("");
+        navigate("/");
+      } else {
+        alert("Veuillez vous connecter à nouveau");
+      }
     });
   };
 

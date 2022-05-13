@@ -1,7 +1,13 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
-const NavigationLogged = () => {
+const Navigation = () => {
+  const navigate = useNavigate();
+
+  const Logout = () => {
+    localStorage.clear();
+  };
+
   return (
     <div className="navigation">
       <ul>
@@ -18,23 +24,11 @@ const NavigationLogged = () => {
           to="/signin"
           className={(nav) => (nav.isActive ? "nav-active" : "")}
         >
-          <li>Déconnexion</li>
-        </NavLink>
-        <NavLink
-          to="/signin"
-          className={(nav) => (nav.isActive ? "nav-active" : "")}
-        >
-          <li>Connexion</li>
-        </NavLink>
-        <NavLink
-          to="/signup"
-          className={(nav) => (nav.isActive ? "nav-active" : "")}
-        >
-          <li>Inscription</li>
+          <li onClick={() => Logout()}>Déconnexion</li>
         </NavLink>
       </ul>
     </div>
   );
 };
 
-export default NavigationLogged;
+export default Navigation;
