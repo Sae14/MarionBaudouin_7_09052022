@@ -1,9 +1,7 @@
 import React from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Navigation = () => {
-  const navigate = useNavigate();
-
   const Logout = () => {
     localStorage.clear();
   };

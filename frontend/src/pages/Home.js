@@ -18,42 +18,34 @@ const Home = () => {
 
   useEffect(() => getData(), []);
 
-  const handleSubmit =
-    // async
-    (e) => {
-      e.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-      if (content || file) {
-        const data = {
-          author: "Alix",
-          content,
-          date: Date.now(),
-        };
+    if (content || file) {
+      const body = {
+        content,
+        date: Date.now(),
+      };
 
-        // const data = new FormData();
-        // data.append("content", content);
-        // data.append("date", Date.now());
-        // if (file) data.append("file", file);
+      const data = new FormData();
+      if (file) data.append("file", file);
+      data.append("body", body);
 
-        // await
-        axios.post("http://localhost:3004/posts", data).then(() => {
-          resetPost();
-          getData();
-        });
-      } else {
-        alert("Veuillez ajouter un message et/ou une image");
-      }
-    };
+      axios.post("http://localhost:3004/posts", data).then(() => {
+        resetPost();
+      });
+    } else {
+      alert("Veuillez ajouter un message et/ou une image");
+    }
+  };
 
   const handlePicture = (e) => {
-    setFile(URL.createObjectURL(e.target.files[0]));
-    //setFile(e.target.files[0]);
+    setFile(e.target.files[0]);
   };
 
   const resetPost = () => {
     setContent("");
     setFile("");
-    //setPicture(URL.revokeObjectURL);
   };
 
   return (
