@@ -11,9 +11,9 @@ const sequelize = new Sequelize(MY_DB_NAME, MY_DB_USERNAME, MY_DB_PASSWORD, {
 });
 
 import("./User.js");
-// import("./Post.js");
-// import("./Comment.js");
-// import("./Like.js");
-// import("./Log.js");
+import("./Post.js");
+import("./Comment.js");
+import("./Like.js");
+import("./Log.js");
 
 module.exports = sequelize;
