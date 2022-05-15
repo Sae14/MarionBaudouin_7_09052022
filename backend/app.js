@@ -1,15 +1,21 @@
 const express = require("express");
 const helmet = require("helmet");
-const { Sequelize } = require("sequelize");
-const dotenv = require("dotenv");
-dotenv.config();
+const dotenv = require("dotenv").config();
 const path = require("path");
 const postRoutes = require("./routes/post");
 const userRoutes = require("./routes/user");
 const likeRoutes = require("./routes/like");
 const commentRoutes = require("./routes/comment");
-
+const sequelize = require("./models/index");
 const app = express();
+
+// Vérification de la connexion entre sequelize et la base de données mysql :
+try {
+  sequelize.authenticate();
+  console.log("Connection to database successfull");
+} catch (error) {
+  console.error("Connection to dabase failed", error);
+}
 
 app.use(helmet({ crossOriginResourcePolicy: false }));
 
