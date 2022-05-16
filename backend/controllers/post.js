@@ -7,10 +7,11 @@ const MY_SECRET = process.env.SECRET;
 
 // exports.getOnePost = (req, res, next) => {};
 
-exports.createPost = (req, res, next, { userId }) => {
+exports.createPost = (req, res, next) => {
   // const sauceObject = JSON.parse(req.body.sauce);
   Post.create({
     content: req.body.content,
+    user_id: req.auth,
     // user_id: req.body.user_id,
     //   ...sauceObject,
     //   imageUrl: `${req.protocol}://${req.get("host")}/images/${

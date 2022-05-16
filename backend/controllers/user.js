@@ -20,7 +20,7 @@ exports.signup = (req, res, next) => {
     .catch((error) => res.status(500).json({ error }));
 };
 
-exports.login = (req, res, next) => {
+exports.login = (req, res, next, userId) => {
   // Connexion de l'utilisateur en comparant les informations fournies avec celles de la base de données
   User.findOne({ where: { email: req.body.email } })
     .then((user) => {
