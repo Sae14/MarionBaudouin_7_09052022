@@ -18,7 +18,11 @@ exports.createPost = (req, res, next) => {
     //     req.file.filename
     //   }`,
   })
-    .then(() => res.status(201).json({ message: "Nouveau post sauvegardé" }))
+    .then((Post) =>
+      res
+        .status(201)
+        .json({ postId: Post.id, message: "Nouveau post sauvegardé" })
+    )
     .catch((error) => res.status(400).json({ error }));
 };
 
