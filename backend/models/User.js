@@ -4,9 +4,11 @@ const { DataTypes } = require("sequelize");
 const User = sequelize.define("user", {
   name: {
     type: DataTypes.STRING,
+    unique: true,
   },
   email: {
     type: DataTypes.STRING,
+    unique: true,
     // unique: true, allownull : false
   },
   password: {

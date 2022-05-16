@@ -25,7 +25,7 @@ const Post = sequelize.define("post", {
 
 // Opérations destructrices : à retirer pour la production et remplacer synchronisation par les migrations
 // (async () => {
-//   await Post.sync();
+//   await Post.sync({ force: false, alter: true });
 //   console.log("The table for the Post model was just (re)created!");
 // })();
 

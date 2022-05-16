@@ -6,7 +6,7 @@ const multer = require("../middleware/multer-config");
 
 // Mise en place des routes post avec authentification obligatoire :
 // auth,
-// router.get("/", postCtrl.getAllPosts);
+router.get("/", auth, postCtrl.getAllPosts);
 // router.get("/:id", auth, postCtrl.getOnePost);
 router.post(
   "/",
@@ -15,6 +15,6 @@ router.post(
   postCtrl.createPost
 );
 // router.put("/:id", auth, multer, postCtrl.modifyPost);
-// router.delete("/:id", auth, postCtrl.deletePost);
+router.delete("/:id", auth, postCtrl.deletePost);
 
 module.exports = router;
