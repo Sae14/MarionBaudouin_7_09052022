@@ -14,7 +14,8 @@ router.post(
   // multer,
   postCtrl.createPost
 );
-// router.put("/:id", auth, multer, postCtrl.modifyPost);
+// multer
+router.put("/:id", auth, postCtrl.modifyPost);
 router.delete("/:id", auth, postCtrl.deletePost);
 
 module.exports = router;
