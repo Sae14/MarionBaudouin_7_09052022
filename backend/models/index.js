@@ -11,9 +11,21 @@ const sequelize = new Sequelize(MY_DB_NAME, MY_DB_USERNAME, MY_DB_PASSWORD, {
 });
 
 import("./User.js");
+import("./Log.js");
 import("./Post.js");
 import("./Comment.js");
 import("./Like.js");
-import("./Log.js");
+import("./association");
+
+// User.hasMany(Log);
+// Log.belongsTo(
+//   User
+//   // , { as: "User", foreignKey: "UserId" }
+// );
+
+// (async () => {
+//   await sequelize.sync({ force: false, alter: true });
+//   console.log("All table models wre just (re)created!");
+// })();
 
 module.exports = sequelize;
