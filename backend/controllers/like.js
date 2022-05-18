@@ -1,6 +1,6 @@
-const Like = require("../models/Like");
-const jwt = require("jsonwebtoken");
-const MY_SECRET = process.env.SECRET;
+// const Like = require("../models/index");
+// const jwt = require("jsonwebtoken");
+// const MY_SECRET = process.env.SECRET;
 
 // exports.getAllLikes = (req, res, next) => {};
 

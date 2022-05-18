@@ -1,6 +1,8 @@
-const Post = require("../models/Post");
-const User = require("../models/User");
-const fs = require("fs");
+// const Post = require("../models/Post");
+// const User = require("../models/User");
+const { Post } = require("../models/index");
+// const User = require("../models/index");
+// const fs = require("fs");
 
 exports.getAllPosts = (req, res, next) => {
   Post.findAll()

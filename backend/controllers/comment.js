@@ -1,6 +1,7 @@
-const Comment = require("../models/Comment");
-const jwt = require("jsonwebtoken");
-const MY_SECRET = process.env.SECRET;
+// const Comment = require("../models/Comment");
+// const Comment = require("../models/index");
+// const jwt = require("jsonwebtoken");
+// const MY_SECRET = process.env.SECRET;
 
 // exports.getAllComments = (req, res, next) => {};
 

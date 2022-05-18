@@ -74,12 +74,9 @@ Comment.belongsTo(Post);
 User.hasMany(Comment);
 Comment.belongsTo(User);
 
-// User.hasMany(Log);
-// Log.belongsTo(User);
-
 // (async () => {
 //   await sequelize.sync({ force: false, alter: true });
 //   console.log("Tables for all models were just (re)created!");
 // })();
 
-module.exports = sequelize;
+module.exports = { sequelize, User, Post, Log, Comment, Like };

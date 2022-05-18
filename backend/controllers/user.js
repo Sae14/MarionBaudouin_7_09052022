@@ -1,7 +1,9 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const User = require("../models/User");
+// const User = require("../models/User");
+const { User } = require("../models/index");
 const MY_SECRET = process.env.SECRET;
+const { Sequelize } = require("sequelize");
 
 exports.signup = (req, res, next) => {
   // Inscription du user en hachant le mdp

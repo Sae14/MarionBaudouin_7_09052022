@@ -6,7 +6,8 @@ const postRoutes = require("./routes/post");
 const userRoutes = require("./routes/user");
 const likeRoutes = require("./routes/like");
 const commentRoutes = require("./routes/comment");
-const sequelize = require("./models/index");
+const { sequelize } = require("./models/index");
+
 const app = express();
 
 // Vérification de la connexion entre sequelize et la base de données mysql :
