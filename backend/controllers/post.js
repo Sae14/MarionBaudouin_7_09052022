@@ -1,6 +1,6 @@
 // const Post = require("../models/Post");
 // const User = require("../models/User");
-const { Post } = require("../models/index");
+const { Post, User } = require("../models/index");
 // const User = require("../models/index");
 // const fs = require("fs");
 
@@ -20,8 +20,8 @@ exports.createPost = (req, res, next) => {
   // const postObject = JSON.parse(req.body.body);
   Post.create({
     content: req.body.content,
-    user_id: req.auth,
-    // user_id: req.body.user_id,
+    userId: req.auth,
+    // userId: req.body.userId,
     //   ...postObject,
     //   imageUrl: `${req.protocol}://${req.get("host")}/images/${
     //     req.file.filename
@@ -38,7 +38,7 @@ exports.createPost = (req, res, next) => {
 exports.modifyPost = (req, res, next) => {
   Post.findOne({ where: { id: req.params.id } })
     .then((Post) => {
-      if (req.auth == Post.user_id) {
+      if (req.auth == Post.userId) {
         // S'il y a modification de l'image :
         // if (req.file) {
         //   const postObjectFile = {
@@ -80,7 +80,7 @@ exports.modifyPost = (req, res, next) => {
 exports.deletePost = (req, res, next) => {
   Post.findOne({ where: { id: req.params.id } })
     .then((Post) => {
-      if (req.auth == Post.user_id) {
+      if (req.auth == Post.userId) {
         // const filename = sauce.imageUrl.split("/images/")[1];
         // fs.unlink(`images/${filename}`, () => {
         Post.destroy({ where: { id: req.params.id } })
