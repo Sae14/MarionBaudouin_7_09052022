@@ -1,4 +1,4 @@
-const { Sequelize } = require("sequelize");
+const { Sequelize, DataTypes } = require("sequelize");
 
 MY_DB_NAME = process.env.DB_NAME;
 MY_DB_USERNAME = process.env.DB_USERNAME;
@@ -10,22 +10,76 @@ const sequelize = new Sequelize(MY_DB_NAME, MY_DB_USERNAME, MY_DB_PASSWORD, {
   dialect: "mysql",
 });
 
-import("./User.js");
-import("./Log.js");
-import("./Post.js");
-import("./Comment.js");
-import("./Like.js");
-import("./association");
+const User = sequelize.define("user", {
+  name: {
+    type: DataTypes.STRING,
+    unique: true,
+    // allownull: false,
+  },
+  email: {
+    type: DataTypes.STRING,
+    unique: true,
+    //  allownull: false,
+  },
+  password: {
+    type: DataTypes.STRING,
+    // allownull: false,
+  },
+  admin: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+  },
+  bio: {
+    type: DataTypes.STRING,
+  },
+});
+
+const Post = sequelize.define("post", {
+  // username ?
+  content: {
+    type: DataTypes.STRING,
+  },
+  // file
+});
+
+const Like = sequelize.define(
+  "like"
+  // nombre ds post ?
+);
+
+const Log = sequelize.define("log");
+
+const Comment = sequelize.define("comment", {
+  content: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+});
+
+User.hasMany(Log);
+Log.belongsTo(User);
+
+User.hasMany(Post);
+Post.belongsTo(User);
+
+User.hasMany(Like);
+Like.belongsTo(User);
+
+Post.hasMany(Like);
+Like.belongsTo(Post);
+
+Post.hasMany(Comment);
+Comment.belongsTo(Post);
+
+User.hasMany(Comment);
+Comment.belongsTo(User);
 
 // User.hasMany(Log);
-// Log.belongsTo(
-//   User
-//   // , { as: "User", foreignKey: "UserId" }
-// );
+// Log.belongsTo(User);
 
 // (async () => {
 //   await sequelize.sync({ force: false, alter: true });
-//   console.log("All table models wre just (re)created!");
+//   console.log("Tables for all models were just (re)created!");
 // })();
 
 module.exports = sequelize;
