@@ -61,19 +61,21 @@ const Comment = sequelize.define("comment", {
 User.hasMany(Log);
 Log.belongsTo(User);
 
-User.hasMany(Post);
+User.hasMany(Post, {
+  onDelete: "cascade",
+});
 Post.belongsTo(User);
 
-User.hasMany(Like);
+User.hasMany(Like, { onDelete: "cascade" });
 Like.belongsTo(User);
 
-Post.hasMany(Like);
+Post.hasMany(Like, { onDelete: "cascade" });
 Like.belongsTo(Post);
 
-Post.hasMany(Comment);
+Post.hasMany(Comment, { onDelete: "cascade" });
 Comment.belongsTo(Post);
 
-User.hasMany(Comment);
+User.hasMany(Comment, { onDelete: "cascade" });
 Comment.belongsTo(User);
 
 // (async () => {
