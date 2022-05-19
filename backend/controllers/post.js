@@ -3,7 +3,7 @@
 const { Post, User } = require("../models/index");
 const Sequelize = require("sequelize");
 // const User = require("../models/index");
-// const fs = require("fs");
+const fs = require("fs");
 
 exports.getAllPosts = (req, res, next) => {
   Post.findAll()
@@ -18,22 +18,34 @@ exports.getOnePost = (req, res, next) => {
 };
 
 exports.createPost = (req, res, next) => {
-  // const postObject = JSON.parse(req.body.body);
-  Post.create({
-    content: req.body.content,
-    userId: req.auth.userId,
-    // userId: req.body.userId,
-    //   ...postObject,
-    //   imageUrl: `${req.protocol}://${req.get("host")}/images/${
-    //     req.file.filename
-    //   }`,
-  })
-    .then((post) =>
-      res
-        .status(201)
-        .json({ postId: post.id, message: "Nouveau post sauvegardé" })
-    )
-    .catch((error) => res.status(400).json({ error }));
+  if (req.file) {
+    // json parse ? bug
+    // const contentObject = req.body.post;
+    Post.create({
+      content: req.body.content,
+      userId: req.auth.userId,
+      image: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
+    })
+      .then((post) =>
+        res.status(201).json({
+          postId: post.id,
+          message: "Nouveau post avec image sauvegardé",
+        })
+      )
+      .catch((error) => res.status(400).json({ error }));
+  } else {
+    Post.create({
+      content: req.body.content,
+      userId: req.auth.userId,
+      // userId: req.body.userId,
+    })
+      .then((post) =>
+        res
+          .status(201)
+          .json({ postId: post.id, message: "Nouveau post sauvegardé" })
+      )
+      .catch((error) => res.status(400).json({ error }));
+  }
 };
 
 exports.modifyPost = (req, res, next) => {

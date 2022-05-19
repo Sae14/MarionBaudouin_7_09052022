@@ -25,10 +25,6 @@ exports.createComment = (req, res, next) => {
       postId: req.body.postId,
       //   postId: comment ?
       // userId: req.body.userId,
-      //   ...postObject,
-      //   imageUrl: `${req.protocol}://${req.get("host")}/images/${
-      //     req.file.filename
-      //   }`,
     }
     // { include: [{ association: Comment.Post }] }
   )
@@ -45,40 +41,12 @@ exports.modifyComment = (req, res, next) => {
   Comment.findOne({
     where: { id: req.params.id },
     // include: User,
-    // include: {
-    //   model: User,
-    //   where: {
-    //     id: req.auth,
-
-    // role: Sequelize.col("user.role"),
-    // },
-    // },
   })
     .then((comment) => {
       if (
         (req.auth.userId == comment.userId) |
         (req.auth.userRole == "ADMIN")
       ) {
-        // | (req.auth == Post.hasUser.admin(true))
-        // S'il y a modification de l'image :
-        // if (req.file) {
-        //   const postObjectFile = {
-        //     ...JSON.parse(req.body.body),
-        //     imageUrl: `${req.protocol}://${req.get("host")}/images/${
-        //       req.file.filename
-        //     }`,
-        //   };
-        //   const filename = post.imageUrl.split("/images/")[1];
-        //   fs.unlink(`images/${filename}`, () => {
-        //     Post.updateOne(
-        //       { id: req.params.id },
-        //       { ...postObjectFile, id: req.params.id }
-        //     )
-        //       .then(() => res.status(200).json({ message: "Post modifié" }))
-        //       .catch((error) => res.status(400).json({ error }));
-        //   });
-        // } else {
-        // S'il y a modification sans image :
         const commentObject = { ...req.body };
         Comment.update(
           { ...commentObject, id: req.params.id },
@@ -88,7 +56,7 @@ exports.modifyComment = (req, res, next) => {
             },
           }
         )
-          .then(() => res.status(200).json({ message: "Comment modifié" }))
+          .then(() => res.status(200).json({ message: "Commentaire modifié" }))
           .catch((error) => res.status(400).json({ error }));
         // }
       } else {
@@ -105,12 +73,9 @@ exports.deleteComment = (req, res, next) => {
         (req.auth.userId == comment.userId) |
         (req.auth.userRole == "ADMIN")
       ) {
-        // const filename = sauce.imageUrl.split("/images/")[1];
-        // fs.unlink(`images/${filename}`, () => {
         Comment.destroy({ where: { id: req.params.id } })
           .then(() => res.status(200).json({ message: "Commentaire supprimé" }))
           .catch((error) => res.status(400).json({ error }));
-        // });
       } else {
         res.status(403).json({ message: "Unauthorized request" });
       }

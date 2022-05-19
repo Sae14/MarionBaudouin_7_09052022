@@ -39,7 +39,9 @@ const Post = sequelize.define("post", {
   content: {
     type: DataTypes.STRING,
   },
-  // file
+  image: {
+    type: DataTypes.STRING,
+  },
 });
 
 const Like = sequelize.define(
