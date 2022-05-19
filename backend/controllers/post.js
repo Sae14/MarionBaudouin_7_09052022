@@ -1,6 +1,7 @@
 // const Post = require("../models/Post");
 // const User = require("../models/User");
 const { Post, User } = require("../models/index");
+const Sequelize = require("sequelize");
 // const User = require("../models/index");
 // const fs = require("fs");
 
@@ -27,18 +28,30 @@ exports.createPost = (req, res, next) => {
     //     req.file.filename
     //   }`,
   })
-    .then((Post) =>
+    .then((post) =>
       res
         .status(201)
-        .json({ postId: Post.id, message: "Nouveau post sauvegardé" })
+        .json({ postId: post.id, message: "Nouveau post sauvegardé" })
     )
     .catch((error) => res.status(400).json({ error }));
 };
 
 exports.modifyPost = (req, res, next) => {
-  Post.findOne({ where: { id: req.params.id } })
-    .then((Post) => {
-      if (req.auth == Post.userId) {
+  Post.findOne({
+    where: { id: req.params.id },
+    // include: User,
+    // include: {
+    //   model: User,
+    //   where: {
+    //     id: req.auth,
+
+    // role: Sequelize.col("user.role"),
+    // },
+    // },
+  })
+    .then((post) => {
+      if (req.auth == post.userId) {
+        // | (req.auth == Post.hasUser.admin(true))
         // S'il y a modification de l'image :
         // if (req.file) {
         //   const postObjectFile = {
@@ -79,8 +92,8 @@ exports.modifyPost = (req, res, next) => {
 
 exports.deletePost = (req, res, next) => {
   Post.findOne({ where: { id: req.params.id } })
-    .then((Post) => {
-      if (req.auth == Post.userId) {
+    .then((post) => {
+      if (req.auth == post.userId) {
         // const filename = sauce.imageUrl.split("/images/")[1];
         // fs.unlink(`images/${filename}`, () => {
         Post.destroy({ where: { id: req.params.id } })
