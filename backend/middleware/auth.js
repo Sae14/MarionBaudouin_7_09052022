@@ -8,7 +8,8 @@ module.exports = (req, res, next) => {
     const token = req.headers.authorization.split(" ")[1];
     const decodedToken = jwt.verify(token, MY_SECRET);
     const userId = decodedToken.userId;
-    req.auth = userId;
+    const userRole = decodedToken.userRole;
+    req.auth = { userId, userRole };
     if (req.body.userId && req.body.userId !== userId) {
       throw "User ID non valable !";
     } else {

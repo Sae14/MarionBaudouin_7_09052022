@@ -21,7 +21,7 @@ exports.createPost = (req, res, next) => {
   // const postObject = JSON.parse(req.body.body);
   Post.create({
     content: req.body.content,
-    userId: req.auth,
+    userId: req.auth.userId,
     // userId: req.body.userId,
     //   ...postObject,
     //   imageUrl: `${req.protocol}://${req.get("host")}/images/${
@@ -50,7 +50,7 @@ exports.modifyPost = (req, res, next) => {
     // },
   })
     .then((post) => {
-      if (req.auth == post.userId) {
+      if ((req.auth.userId == post.userId) | (req.auth.userRole == "ADMIN")) {
         // | (req.auth == Post.hasUser.admin(true))
         // S'il y a modification de l'image :
         // if (req.file) {
@@ -93,7 +93,7 @@ exports.modifyPost = (req, res, next) => {
 exports.deletePost = (req, res, next) => {
   Post.findOne({ where: { id: req.params.id } })
     .then((post) => {
-      if (req.auth == post.userId) {
+      if ((req.auth.userId == post.userId) | (req.auth.userRole == "ADMIN")) {
         // const filename = sauce.imageUrl.split("/images/")[1];
         // fs.unlink(`images/${filename}`, () => {
         Post.destroy({ where: { id: req.params.id } })

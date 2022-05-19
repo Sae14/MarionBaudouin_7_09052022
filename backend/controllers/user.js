@@ -36,10 +36,15 @@ exports.login = (req, res, next) => {
             return res.status(401).json({ error: "Mot de passe incorrect" });
           }
           res.status(200).json({
+            userRole: user.role,
             userId: user.id,
-            token: jwt.sign({ userId: user.id }, MY_SECRET, {
-              expiresIn: "24h",
-            }),
+            token: jwt.sign(
+              { userId: user.id, userRole: user.role },
+              MY_SECRET,
+              {
+                expiresIn: "24h",
+              }
+            ),
           });
         })
         .catch((error) => res.status(500).json({ error }));
@@ -73,7 +78,7 @@ exports.modifyUser = (req, res, next) => {
     // },
   })
     .then((user) => {
-      if (req.auth == user.id) {
+      if ((req.auth.userId == user.id) | (req.auth.userRole == "ADMIN")) {
         // | (req.auth == Post.hasUser.admin(true))
         // S'il y a modification de l'image :
         // if (req.file) {
@@ -117,7 +122,7 @@ exports.modifyUser = (req, res, next) => {
 exports.deleteUser = (req, res, next) => {
   User.findOne({ where: { id: req.params.id } })
     .then((user) => {
-      if (req.auth == user.id) {
+      if ((req.auth.userId == user.id) | (req.auth.userRole == "ADMIN")) {
         // const filename = sauce.imageUrl.split("/images/")[1];
         // fs.unlink(`images/${filename}`, () => {
         User.destroy({ where: { id: req.params.id } })
