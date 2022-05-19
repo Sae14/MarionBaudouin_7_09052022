@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 // const User = require("../models/User");
-const { User } = require("../models/index");
+const { User, Log } = require("../models/index");
 const MY_SECRET = process.env.SECRET;
 const { Sequelize } = require("sequelize");
 
@@ -35,6 +35,7 @@ exports.login = (req, res, next) => {
           if (!valid) {
             return res.status(401).json({ error: "Mot de passe incorrect" });
           }
+
           res.status(200).json({
             userRole: user.role,
             userId: user.id,
@@ -46,6 +47,7 @@ exports.login = (req, res, next) => {
               }
             ),
           });
+          Log.create({ userId: user.id });
         })
         .catch((error) => res.status(500).json({ error }));
     })

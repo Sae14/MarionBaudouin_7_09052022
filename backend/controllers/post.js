@@ -2,7 +2,6 @@
 // const User = require("../models/User");
 const { Post, User } = require("../models/index");
 const Sequelize = require("sequelize");
-// const User = require("../models/index");
 const fs = require("fs");
 
 exports.getAllPosts = (req, res, next) => {
@@ -12,7 +11,7 @@ exports.getAllPosts = (req, res, next) => {
 };
 
 exports.getOnePost = (req, res, next) => {
-  Post.findOne({ where: { id: req.params.id } })
+  Post.findOne({ where: { id: req.params.id }, include: User })
     .then((post) => res.status(200).json(post))
     .catch((error) => res.status(404).json({ error }));
 };
