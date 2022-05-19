@@ -1,8 +1,4 @@
-// const Comment = require("../models/Comment");
-// const Comment = require("../models/index");
 const { Comment, Post, User } = require("../models/index");
-// const jwt = require("jsonwebtoken");
-// const MY_SECRET = process.env.SECRET;
 
 exports.getAllComments = (req, res, next) => {
   Comment.findAll({ include: Post })

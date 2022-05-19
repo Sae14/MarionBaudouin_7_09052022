@@ -1,7 +1,4 @@
-// const Post = require("../models/Post");
-// const User = require("../models/User");
 const { Post, User } = require("../models/index");
-const Sequelize = require("sequelize");
 const fs = require("fs");
 
 exports.getAllPosts = (req, res, next) => {

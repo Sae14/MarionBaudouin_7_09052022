@@ -1,6 +1,5 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-// const User = require("../models/User");
 const { User, Log } = require("../models/index");
 const MY_SECRET = process.env.SECRET;
 const { Sequelize } = require("sequelize");

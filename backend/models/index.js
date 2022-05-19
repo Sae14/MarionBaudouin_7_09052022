@@ -35,7 +35,6 @@ const User = sequelize.define("user", {
 });
 
 const Post = sequelize.define("post", {
-  // username ?
   content: {
     type: DataTypes.STRING,
   },
@@ -43,11 +42,6 @@ const Post = sequelize.define("post", {
     type: DataTypes.STRING,
   },
 });
-
-const Like = sequelize.define(
-  "like"
-  // nombre ds post ?
-);
 
 const Log = sequelize.define("log");
 
@@ -66,12 +60,6 @@ User.hasMany(Post, {
 });
 Post.belongsTo(User);
 
-User.hasMany(Like, { onDelete: "cascade" });
-Like.belongsTo(User);
-
-Post.hasMany(Like, { onDelete: "cascade" });
-Like.belongsTo(Post);
-
 Post.hasMany(Comment, { onDelete: "cascade" });
 Comment.belongsTo(Post);
 
@@ -83,4 +71,4 @@ Comment.belongsTo(User);
 //   console.log("Tables for all models were just (re)created!");
 // })();
 
-module.exports = { sequelize, User, Post, Log, Comment, Like };
+module.exports = { sequelize, User, Post, Log, Comment };
