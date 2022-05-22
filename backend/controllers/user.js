@@ -79,7 +79,7 @@ exports.modifyUser = (req, res, next) => {
     // },
   })
     .then((user) => {
-      if ((req.auth.userId == user.id) | (req.auth.userRole == "ADMIN")) {
+      if (req.auth.userId == user.id || req.auth.userRole == "ADMIN") {
         // | (req.auth == Post.hasUser.admin(true))
         // S'il y a modification de l'image :
         // if (req.file) {
@@ -123,7 +123,7 @@ exports.modifyUser = (req, res, next) => {
 exports.deleteUser = (req, res, next) => {
   User.findOne({ where: { id: req.params.id } })
     .then((user) => {
-      if ((req.auth.userId == user.id) | (req.auth.userRole == "ADMIN")) {
+      if (req.auth.userId == user.id || req.auth.userRole == "ADMIN") {
         // const filename = sauce.imageUrl.split("/images/")[1];
         // fs.unlink(`images/${filename}`, () => {
         User.destroy({ where: { id: req.params.id } })

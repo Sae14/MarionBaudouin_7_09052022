@@ -37,7 +37,7 @@ const Post = ({ post }) => {
     <div className="post">
       <div className="post-header">
         <h3>{post.author}</h3>
-        <p>Posté le {dateFormater(post.date)}</p>
+        <p>Posté le {dateFormater(post.createdAt)}</p>
       </div>
 
       {isEditing ? (
@@ -49,7 +49,7 @@ const Post = ({ post }) => {
       ) : (
         <p>{editContent ? editContent : post.content}</p>
       )}
-      {post.file ? <img src={post.file} alt=""></img> : null}
+      {post.image ? <img src={post.image} alt=""></img> : null}
 
       <div className="count-container">
         <p>NombreLikes :{/* donnée dynamique de table like</p> */} </p>

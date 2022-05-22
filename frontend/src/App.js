@@ -5,8 +5,16 @@ import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
 import Notfound from "./pages/Notfound";
+// import axios from "axios";
 
 const App = () => {
+  // const [localtoken, setLocalToken] = useState();
+
+  // useEffect(() => {
+  //   setLocalToken(JSON.parse(sessionStorage.getItem("mytoken")));
+  //   axios.defaults.headers.common = { Authorization: `Bearer ${localtoken}` };
+  // }, []);
+
   return (
     <BrowserRouter>
       <Routes>

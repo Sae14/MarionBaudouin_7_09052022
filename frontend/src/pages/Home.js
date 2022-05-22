@@ -9,31 +9,46 @@ const Home = () => {
   const [postsData, setPostsData] = useState([]);
   const [content, setContent] = useState("");
   const [file, setFile] = useState();
+  let headerstoken = sessionStorage.getItem("mytoken");
 
-  const getData = () => {
-    axios
-      .get("http://localhost:3004/posts")
-      .then((res) => setPostsData(res.data));
-  };
+  // const [headerstoken, setHeadersToken] = useState();
 
-  useEffect(() => getData(), []);
+  useEffect(() => {
+    const getData = () => {
+      // let headerstoken = sessionStorage.getItem("mytoken");
+      // setHeadersToken(sessionStorage.getItem("mytoken"));
+      axios
+        .get(`http://localhost:${process.env.REACT_APP_PORT}/api/posts`, {
+          headers: {
+            Authorization: `Bearer ${headerstoken}`,
+          },
+        })
+        .then((res) => setPostsData(res.data));
+    };
+    getData();
+  }, [headerstoken]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (content || file) {
-      const body = {
-        content,
-        date: Date.now(),
-      };
-
       const data = new FormData();
-      if (file) data.append("file", file);
-      data.append("body", body);
+      if (file) data.append("image", file);
+      data.append("content", content);
 
-      axios.post("http://localhost:3004/posts", data).then(() => {
-        resetPost();
-      });
+      axios
+        .post(
+          `http://localhost:${process.env.REACT_APP_PORT}/api/posts`,
+          data,
+          {
+            headers: {
+              Authorization: `Bearer ${headerstoken}`,
+            },
+          }
+        )
+        .then(() => {
+          resetPost();
+        });
     } else {
       alert("Veuillez ajouter un message et/ou une image");
     }
@@ -82,7 +97,7 @@ const Home = () => {
 
         <section className="posts-container">
           {postsData
-            .sort((a, b) => b.date - a.date)
+            .sort((a, b) => b.createdAt - a.createdAt)
             .map((post) => (
               <Post key={post.id} post={post} />
             ))}

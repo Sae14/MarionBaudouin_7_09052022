@@ -10,12 +10,16 @@ module.exports = (req, res, next) => {
     const userId = decodedToken.userId;
     const userRole = decodedToken.userRole;
     req.auth = { userId, userRole };
-    if (req.body.userId && req.body.userId !== userId) {
+    if (
+      req.body.userId &&
+      req.body.userId !== userId
+      // ||  userRole == "USER"
+    ) {
       throw "User ID non valable !";
     } else {
       next();
     }
   } catch (error) {
-    res.status(401).json({ error: error && "Requête non autorisée" });
+    res.status(401).json({ error: error | "Requête non autorisée" });
   }
 };

@@ -11,15 +11,20 @@ const FormSignup = () => {
 
     const data = {
       email,
-      pseudo,
+      name: pseudo,
       password,
     };
 
-    axios.post("http://localhost:3004/users", data).then(() => {
-      setEmail("");
-      setPseudo("");
-      setPassword("");
-    });
+    axios
+      .post(
+        `http://localhost:${process.env.REACT_APP_PORT}/api/auth/signup`,
+        data
+      )
+      .then(() => {
+        setEmail("");
+        setPseudo("");
+        setPassword("");
+      });
   };
 
   return (

@@ -14,16 +14,11 @@ exports.getOneComment = (req, res, next) => {
 
 exports.createComment = (req, res, next) => {
   // const postObject = JSON.parse(req.body.body);
-  Comment.create(
-    {
-      content: req.body.content,
-      userId: req.auth.userId,
-      postId: req.body.postId,
-      //   postId: comment ?
-      // userId: req.body.userId,
-    }
-    // { include: [{ association: Comment.Post }] }
-  )
+  Comment.create({
+    content: req.body.content,
+    userId: req.auth.userId,
+    postId: req.body.postId,
+  })
     .then((comment) =>
       res.status(201).json({
         commentId: comment.id,
@@ -39,10 +34,7 @@ exports.modifyComment = (req, res, next) => {
     // include: User,
   })
     .then((comment) => {
-      if (
-        (req.auth.userId == comment.userId) |
-        (req.auth.userRole == "ADMIN")
-      ) {
+      if (req.auth.userId == comment.userId || req.auth.userRole == "ADMIN") {
         const commentObject = { ...req.body };
         Comment.update(
           { ...commentObject, id: req.params.id },
@@ -65,10 +57,7 @@ exports.modifyComment = (req, res, next) => {
 exports.deleteComment = (req, res, next) => {
   Comment.findOne({ where: { id: req.params.id } })
     .then((comment) => {
-      if (
-        (req.auth.userId == comment.userId) |
-        (req.auth.userRole == "ADMIN")
-      ) {
+      if (req.auth.userId == comment.userId || req.auth.userRole == "ADMIN") {
         Comment.destroy({ where: { id: req.params.id } })
           .then(() => res.status(200).json({ message: "Commentaire supprimé" }))
           .catch((error) => res.status(400).json({ error }));

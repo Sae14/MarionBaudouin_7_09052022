@@ -6,7 +6,6 @@ const FormSignin = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [token, setToken] = useState(null);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -16,17 +15,17 @@ const FormSignin = () => {
       password,
     };
 
-    axios.post("http://localhost:3004/users", data).then((res) => {
-      setToken(res.data.mytoken);
-      if (token) {
-        Storage.setItem("token", token);
+    axios
+      .post(
+        `http://localhost:${process.env.REACT_APP_PORT}/api/auth/login`,
+        data
+      )
+      .then((res) => {
+        sessionStorage.setItem("mytoken", res.data.token);
         setEmail("");
         setPassword("");
         navigate("/");
-      } else {
-        alert("Veuillez vous connecter à nouveau");
-      }
-    });
+      });
   };
 
   return (

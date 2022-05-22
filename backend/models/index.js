@@ -8,6 +8,7 @@ MY_DB_PASSWORD = process.env.DB_PASSWORD;
 const sequelize = new Sequelize(MY_DB_NAME, MY_DB_USERNAME, MY_DB_PASSWORD, {
   host: "localhost",
   dialect: "mysql",
+  timezone: "+02:00",
 });
 
 const User = sequelize.define("user", {

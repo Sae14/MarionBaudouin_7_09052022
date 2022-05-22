@@ -14,55 +14,44 @@ exports.getOnePost = (req, res, next) => {
 };
 
 exports.createPost = (req, res, next) => {
+  // const postObjectt = JSON.parse(req.body);
+  const postObjectt = req.body;
+  const postObject = {
+    ...postObjectt,
+    userId: req.auth.userId,
+    // content: JSON.parse(req.body.body),
+    // ...JSON.parse(req.body),
+    // content: req.body.post,
+    // content: JSON.parse(req.body),
+  };
+
   if (req.file) {
-    // json parse ? bug
-    // const contentObject = req.body.post;
-    Post.create({
-      content: req.body.content,
-      userId: req.auth.userId,
-      image: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,
-    })
-      .then((post) =>
-        res.status(201).json({
-          postId: post.id,
-          message: "Nouveau post avec image sauvegardé",
-        })
-      )
-      .catch((error) => res.status(400).json({ error }));
-  } else {
-    Post.create({
-      content: req.body.content,
-      userId: req.auth.userId,
-      // userId: req.body.userId,
-    })
-      .then((post) =>
-        res
-          .status(201)
-          .json({ postId: post.id, message: "Nouveau post sauvegardé" })
-      )
-      .catch((error) => res.status(400).json({ error }));
+    postObject.image = `${req.protocol}://${req.get("host")}/images/${
+      req.file.filename
+    }`;
   }
+
+  // json parse ? bug
+  Post.create(postObject)
+    .then((post) =>
+      res.status(201).json({
+        postId: post.id,
+        message: "Nouveau post sauvegardé",
+      })
+    )
+    .catch((error) => res.status(400).json({ error }));
 };
 
 exports.modifyPost = (req, res, next) => {
   Post.findOne({
     where: { id: req.params.id },
-    // include: User,
-    // include: {
-    //   model: User,
-    //   where: {
-    //     id: req.auth,
-
-    // role: Sequelize.col("user.role"),
-    // },
-    // },
   })
     .then((post) => {
-      if ((req.auth.userId == post.userId) | (req.auth.userRole == "ADMIN")) {
+      if (req.auth.userId == post.userId || req.auth.userRole == "ADMIN") {
         // S'il y a modification de l'image :
         if (req.file) {
           const postObjectFile = {
-            // ...JSON.parse(req.body.content),
+            // ...JSON.parse(req.body),
             content: req.body.content,
             image: `${req.protocol}://${req.get("host")}/images/${
               req.file.filename
@@ -104,7 +93,7 @@ exports.modifyPost = (req, res, next) => {
 exports.deletePost = (req, res, next) => {
   Post.findOne({ where: { id: req.params.id } })
     .then((post) => {
-      if ((req.auth.userId == post.userId) | (req.auth.userRole == "ADMIN")) {
+      if (req.auth.userId == post.userId || req.auth.userRole == "ADMIN") {
         if (post.image) {
           const filename = post.image.split("/images/")[1];
           fs.unlink(`images/${filename}`, () => {
