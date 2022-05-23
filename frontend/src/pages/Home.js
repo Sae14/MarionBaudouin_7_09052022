@@ -1,32 +1,33 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import Logo from "../components/Logo";
 import Navigation from "../components/Navigation";
 import Post from "../components/Post";
 
-const Home = () => {
+const Home = ({ myToken, myId, myRole }) => {
+  const navigate = useNavigate();
   const [postsData, setPostsData] = useState([]);
   const [content, setContent] = useState("");
   const [file, setFile] = useState();
-  let headerstoken = sessionStorage.getItem("mytoken");
-
-  // const [headerstoken, setHeadersToken] = useState();
 
   useEffect(() => {
     const getData = () => {
-      // let headerstoken = sessionStorage.getItem("mytoken");
-      // setHeadersToken(sessionStorage.getItem("mytoken"));
+      if (!myToken) {
+        navigate("/signin");
+      }
+
       axios
         .get(`http://localhost:${process.env.REACT_APP_PORT}/api/posts`, {
           headers: {
-            Authorization: `Bearer ${headerstoken}`,
+            Authorization: `Bearer ${myToken}`,
           },
         })
-        .then((res) => setPostsData(res.data));
+        .then((posts) => setPostsData(posts.data));
     };
     getData();
-  }, [headerstoken]);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -42,11 +43,12 @@ const Home = () => {
           data,
           {
             headers: {
-              Authorization: `Bearer ${headerstoken}`,
+              Authorization: `Bearer ${myToken}`,
             },
           }
         )
-        .then(() => {
+        .then((res) => {
+          console.log(res.data.postId);
           resetPost();
         });
     } else {
@@ -99,7 +101,13 @@ const Home = () => {
           {postsData
             .sort((a, b) => b.createdAt - a.createdAt)
             .map((post) => (
-              <Post key={post.id} post={post} />
+              <Post
+                key={post.id}
+                post={post}
+                myToken={myToken}
+                myId={myId}
+                myRole={myRole}
+              />
             ))}
         </section>
       </div>

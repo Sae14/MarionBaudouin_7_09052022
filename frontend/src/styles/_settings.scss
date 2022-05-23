@@ -1,15 +1,15 @@
-@font-face {
-  font-family: "font-1";
-  src: url(../assets/fonts/Roboto-Medium.ttf);
-}
+// @font-face {
+//   font-family: "font-1";
+//   src: url(../assets/fonts/Roboto-Medium.ttf);
+// }
 
-@font-face {
-  font-family: "font-2";
-  src: url(../assets/fonts/Roboto-Regular.ttf);
-}
+// @font-face {
+//   font-family: "font-2";
+//   src: url(../assets/fonts/Roboto-Regular.ttf);
+// }
 
-$font-1: "font-1", sans-serif;
-$font-2: "font-2", sans-serif;
+// $font-1: "font-1", sans-serif;
+// $font-2: "font-2", sans-serif;
 
 $color-main: #8CB8F2;
 $color-text: #292929;
@@ -25,7 +25,7 @@ $color-background-darker: #e4dcdc;
 
   body {
     background: $color-background-main;
-    font-family: $font-1;
+    // font-family: Arial, Helvetica, sans-serif;
   }
 
 li {
@@ -41,6 +41,6 @@ header {
   border-bottom: 3px groove $color-background-darker;
 }
 
-h1, h2, h3, h4 {
-  font-family: $font-2;
-}
+// h1, h2, h3, h4 {
+//   font-family: $font-2;
+// }

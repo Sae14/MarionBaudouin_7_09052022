@@ -61,7 +61,17 @@ exports.getAllUsers = (req, res, next) => {
 
 exports.getOneUser = (req, res, next) => {
   User.findOne({ where: { id: req.params.id } })
-    .then((user) => res.status(200).json(user))
+    .then((user) => {
+      const userObject = {
+        bio: user.bio,
+        createdAt: user.createdAt,
+        email: user.email,
+        id: user.id,
+        name: user.name,
+        role: user.role,
+      };
+      res.status(200).json(userObject);
+    })
     .catch((error) => res.status(404).json({ error }));
 };
 
@@ -100,9 +110,13 @@ exports.modifyUser = (req, res, next) => {
         //   });
         // } else {
         // S'il y a modification sans image :
-        const userObject = { ...req.body };
+        // const userObject = { ...req.body };
         User.update(
-          { ...userObject, id: req.params.id },
+          {
+            // ...userObject,
+            bio: req.body.content,
+            // , id: req.params.id
+          },
           {
             where: {
               id: req.params.id,

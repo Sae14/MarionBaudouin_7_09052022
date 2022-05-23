@@ -22,6 +22,8 @@ const FormSignin = () => {
       )
       .then((res) => {
         sessionStorage.setItem("mytoken", res.data.token);
+        sessionStorage.setItem("myid", res.data.userId);
+        sessionStorage.setItem("myrole", res.data.userRole);
         setEmail("");
         setPassword("");
         navigate("/");

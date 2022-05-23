@@ -1,33 +1,71 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import Logo from "../components/Logo";
 import Navigation from "../components/Navigation";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const Profile = () => {
+const Profile = ({ myToken, myId }) => {
   const navigate = useNavigate();
-
-  //  const [bio, setBio] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [editBio, setEditBio] = useState("");
   // Useselector redux toolkit pr requêter ds store infos de l'utilisateur ?
-  const [user, setUser] = useState("");
+  const [myProfile, setMyProfile] = useState({});
+
+  useEffect(() => {
+    const getData = () => {
+      if (!myToken) {
+        navigate("/signin");
+      }
+      // let headerstoken = sessionStorage.getItem("mytoken");
+      // setHeadersToken(sessionStorage.getItem("mytoken"));
+      axios
+        .get(
+          `http://localhost:${process.env.REACT_APP_PORT}/api/auth/${myId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${myToken}`,
+            },
+          }
+        )
+        .then((user) => setMyProfile(user.data));
+    };
+    getData();
+  }, []);
 
   const handleEdit = () => {
     const data = {
-      content: editBio ? editBio : user.bio,
+      content: editBio ? editBio : myProfile.bio,
     };
-    axios.put("http://localhost:3004/users/" + user.id, data).then(() => {
-      setIsEditing(false);
-    });
+    axios
+      .put(
+        `http://localhost:${process.env.REACT_APP_PORT}/api/auth/${myId}`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${myToken}`,
+          },
+        }
+      )
+      .then(() => {
+        setIsEditing(false);
+      });
   };
 
   const handleDelete = () => {
-    axios.delete("http://localhost:3004/users/" + user.id).then(() => {
-      localStorage.clear();
-      navigate("/signup");
-    });
+    axios
+      .delete(
+        `http://localhost:${process.env.REACT_APP_PORT}/api/auth/${myId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${myToken}`,
+          },
+        }
+      )
+      .then(() => {
+        sessionStorage.clear();
+        navigate("/signup");
+      });
   };
 
   return (
@@ -40,28 +78,27 @@ const Profile = () => {
       <h2>Profil</h2>
 
       <div className="profile-container">
-        <h3>Bienvenue sur votre espace !</h3>
+        <h3>
+          Bienvenue chez vous {myProfile.name} ! Vous êtes parmi nous depuis le{" "}
+          {myProfile.createdAt}
+        </h3>
 
         <div className="infos-container">
           {/* <h4>Votre avatar</h4> */}
 
-          <h4>Votre pseudo</h4>
+          <h4>Votre adresse email</h4>
 
-          <p>{user.pseudo}userpseudo</p>
+          <p>{myProfile.email}</p>
 
           <h4>Votre bio</h4>
           {isEditing ? (
             <textarea
-              defaultValue={editBio ? editBio : user.bio}
+              defaultValue={editBio ? editBio : myProfile.bio}
               autoFocus
               onChange={(e) => setEditBio(e.target.value)}
             ></textarea>
           ) : (
-            <p>
-              {editBio ? editBio : user.bio}Lorem ipsum dolor sit amet,
-              consectetur adipiscing elit. Aenean eget euismod nisl. Proin
-              placerat in felis id vehicula.
-            </p>
+            <p>{editBio ? editBio : myProfile.bio}</p>
           )}
           <div className="button-container">
             {isEditing ? (

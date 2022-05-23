@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 const Navigation = () => {
   const Logout = () => {
-    localStorage.clear();
+    sessionStorage.clear();
   };
 
   return (

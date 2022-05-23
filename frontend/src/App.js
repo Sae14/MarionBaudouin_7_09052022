@@ -8,6 +8,9 @@ import Notfound from "./pages/Notfound";
 // import axios from "axios";
 
 const App = () => {
+  const myId = sessionStorage.getItem("myid");
+  const myRole = sessionStorage.getItem("myrole");
+  const myToken = sessionStorage.getItem("mytoken");
   // const [localtoken, setLocalToken] = useState();
 
   // useEffect(() => {
@@ -18,8 +21,14 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route
+          path="/"
+          element={<Home myToken={myToken} myId={myId} myRole={myRole} />}
+        />
+        <Route
+          path="/profile"
+          element={<Profile myToken={myToken} myId={myId} />}
+        />
         <Route path="/signup" element={<Signup />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="*" element={<Notfound />} />

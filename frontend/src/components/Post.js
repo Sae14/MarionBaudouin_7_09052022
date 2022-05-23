@@ -1,9 +1,10 @@
 import axios from "axios";
 import React, { useState } from "react";
 
-const Post = ({ post }) => {
+const Post = ({ post, myToken, myId, myRole }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editContent, setEditContent] = useState("");
+  const [file, setFile] = useState();
 
   const dateFormater = (date) => {
     let newDate = new Date(date).toLocaleDateString("fr-FR", {
@@ -18,65 +19,97 @@ const Post = ({ post }) => {
   };
 
   const handleEdit = () => {
-    const data = {
-      author: post.author,
-      content: editContent ? editContent : post.content,
-      date: post.date,
-      updatedDate: Date.now(),
-    };
-    axios.put("http://localhost:3004/posts/" + post.id, data).then(() => {
-      setIsEditing(false);
-    });
+    const data = new FormData();
+    if (file) data.append("image", file);
+    data.append("content", editContent ? editContent : post.content);
+    // const data = {
+    //   content: editContent ? editContent : post.content,
+    // };
+    axios
+      .put(
+        `http://localhost:${process.env.REACT_APP_PORT}/api/posts/${post.id}`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${myToken}`,
+          },
+        }
+      )
+      .then(() => {
+        setIsEditing(false);
+      });
+  };
+
+  const handlePicture = (e) => {
+    setFile(e.target.files[0]);
   };
 
   const handleDelete = () => {
-    axios.delete("http://localhost:3004/posts/" + post.id);
+    axios.delete(
+      `http://localhost:${process.env.REACT_APP_PORT}/api/posts/${post.id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${myToken}`,
+        },
+      }
+    );
   };
 
   return (
     <div className="post">
       <div className="post-header">
-        <h3>{post.author}</h3>
+        <h3>{post.user.name}</h3>
         <p>Posté le {dateFormater(post.createdAt)}</p>
       </div>
 
       {isEditing ? (
-        <textarea
-          defaultValue={editContent ? editContent : post.content}
-          autoFocus
-          onChange={(e) => setEditContent(e.target.value)}
-        ></textarea>
+        <div className="update-container">
+          <textarea
+            defaultValue={editContent ? editContent : post.content}
+            autoFocus
+            onChange={(e) => setEditContent(e.target.value)}
+          ></textarea>
+          <input
+            type="file"
+            name="file"
+            id="file"
+            accept=".png, .jpg, .jpeg, .gif"
+            onChange={(e) => handlePicture(e)}
+          />
+        </div>
       ) : (
         <p>{editContent ? editContent : post.content}</p>
       )}
       {post.image ? <img src={post.image} alt=""></img> : null}
 
-      <div className="count-container">
-        <p>NombreLikes :{/* donnée dynamique de table like</p> */} </p>
-        <p>NombreComs :{/* donnée dynamique de table com</p> */} </p>
-      </div>
-
-      <div className="btn-container">
-        <button>Aimer</button>
-        <button>Commenter</button>
-      </div>
-
-      <div className="btn-action-container">
-        {isEditing ? (
-          <button onClick={() => handleEdit()}>Valider</button>
-        ) : (
-          <button onClick={() => setIsEditing(true)}>Modifier</button>
-        )}
-        <button
-          onClick={() => {
-            if (window.confirm("Voulez-vous vraiment supprimer votre post ?")) {
-              handleDelete();
-            }
-          }}
-        >
-          Supprimer
+      <div className="btn-interact-container">
+        <button>
+          J'aime<span>{/* donnée dynamique de table like</p> */}</span>
+        </button>
+        <button>
+          Commenter<span>{/* donnée dynamique de table com</p> */}</span>
         </button>
       </div>
+      {myId == post.userId || myRole == "ADMIN" ? (
+        <div className="btn-action-container">
+          {isEditing ? (
+            <button onClick={() => handleEdit()}>Valider</button>
+          ) : (
+            <button onClick={() => setIsEditing(true)}>Modifier</button>
+          )}
+          <button
+            onClick={() => {
+              if (
+                window.confirm("Voulez-vous vraiment supprimer votre post ?")
+              ) {
+                handleDelete();
+              }
+            }}
+          >
+            Supprimer
+          </button>
+        </div>
+      ) : null}
     </div>
   );
 };
