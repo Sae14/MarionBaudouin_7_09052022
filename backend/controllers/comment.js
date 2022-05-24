@@ -1,13 +1,21 @@
 const { Comment, Post, User } = require("../models/index");
 
 exports.getAllComments = (req, res, next) => {
-  Comment.findAll({ include: Post })
+  Comment.findAll({
+    where: { postId: req.params.id },
+    include: User,
+  })
     .then((comments) => res.status(200).json(comments))
     .catch((error) => res.status(404).json({ error }));
 };
 
 exports.getOneComment = (req, res, next) => {
-  Comment.findOne({ where: { id: req.params.id }, include: User })
+  Comment.findOne({
+    where: { id: req.params.id },
+    include: {
+      Model: User,
+    },
+  })
     .then((comment) => res.status(200).json(comment))
     .catch((error) => res.status(404).json({ error }));
 };

@@ -1,12 +1,9 @@
-/* eslint-disable eqeqeq */
-import axios from "axios";
 import React, { useState } from "react";
-import PostInteraction from "./PostInteraction";
+import axios from "axios";
 
-const Post = ({ post, myToken, myId, myRole }) => {
+const Comment = ({ comment, myToken, myId, myRole }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editContent, setEditContent] = useState("");
-  const [file, setFile] = useState();
 
   const dateFormater = (date) => {
     let newDate = new Date(date).toLocaleDateString("fr-FR", {
@@ -21,15 +18,13 @@ const Post = ({ post, myToken, myId, myRole }) => {
   };
 
   const handleEdit = () => {
-    const data = new FormData();
-    if (file) data.append("image", file);
-    data.append("content", editContent ? editContent : post.content);
-    // const data = {
-    //   content: editContent ? editContent : post.content,
-    // };
+    const data = {
+      content: editContent ? editContent : comment.content,
+    };
+
     axios
       .put(
-        `http://localhost:${process.env.REACT_APP_PORT}/api/posts/${post.id}`,
+        `http://localhost:${process.env.REACT_APP_PORT}/api/comments/${comment.id}`,
         data,
         {
           headers: {
@@ -42,13 +37,9 @@ const Post = ({ post, myToken, myId, myRole }) => {
       });
   };
 
-  const handlePicture = (e) => {
-    setFile(e.target.files[0]);
-  };
-
   const handleDelete = () => {
     axios.delete(
-      `http://localhost:${process.env.REACT_APP_PORT}/api/posts/${post.id}`,
+      `http://localhost:${process.env.REACT_APP_PORT}/api/comments/${comment.id}`,
       {
         headers: {
           Authorization: `Bearer ${myToken}`,
@@ -58,40 +49,25 @@ const Post = ({ post, myToken, myId, myRole }) => {
   };
 
   return (
-    <div className="post">
-      <div className="post-header">
-        <h3>{post.user.name}</h3>
-        <p>Posté le {dateFormater(post.createdAt)}</p>
+    <div className="comment">
+      <div className="comment-header">
+        <h3>{comment.user.name}</h3>
+        <p>Posté le {dateFormater(comment.createdAt)}</p>
       </div>
 
       {isEditing ? (
         <div className="update-container">
           <textarea
-            defaultValue={editContent ? editContent : post.content}
+            defaultValue={editContent ? editContent : comment.content}
             autoFocus
             onChange={(e) => setEditContent(e.target.value)}
           ></textarea>
-          <input
-            type="file"
-            name="file"
-            id="file"
-            accept=".png, .jpg, .jpeg, .gif"
-            onChange={(e) => handlePicture(e)}
-          />
         </div>
       ) : (
-        <p>{editContent ? editContent : post.content}</p>
+        <p>{editContent ? editContent : comment.content}</p>
       )}
-      {post.image ? <img src={post.image} alt=""></img> : null}
 
-      <PostInteraction
-        post={post}
-        myToken={myToken}
-        myId={myId}
-        myRole={myRole}
-      />
-
-      {myId == post.userId || myRole == "ADMIN" ? (
+      {myId == comment.userId || myRole == "ADMIN" ? (
         <div className="btn-action-container">
           {isEditing ? (
             <button onClick={() => handleEdit()}>Valider</button>
@@ -101,7 +77,9 @@ const Post = ({ post, myToken, myId, myRole }) => {
           <button
             onClick={() => {
               if (
-                window.confirm("Voulez-vous vraiment supprimer votre post ?")
+                window.confirm(
+                  "Voulez-vous vraiment supprimer votre commentaire ?"
+                )
               ) {
                 handleDelete();
               }
@@ -115,4 +93,4 @@ const Post = ({ post, myToken, myId, myRole }) => {
   );
 };
 
-export default Post;
+export default Comment;

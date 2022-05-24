@@ -24,7 +24,7 @@ const Home = ({ myToken, myId, myRole }) => {
             Authorization: `Bearer ${myToken}`,
           },
         })
-        .then((posts) => setPostsData(posts.data));
+        .then((res) => setPostsData(res.data));
     };
     getData();
   }, []);
@@ -90,7 +90,7 @@ const Home = ({ myToken, myId, myRole }) => {
                 onChange={(e) => handlePicture(e)}
               />
               {content || file ? (
-                <button onClick={resetPost}>Reset</button>
+                <button onClick={resetPost}>Réinitialiser</button>
               ) : null}
               <input type="submit" value="Publier" />
             </div>
