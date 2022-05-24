@@ -53,7 +53,7 @@ const Comment = sequelize.define("comment", {
   },
 });
 
-User.hasMany(Log);
+User.hasMany(Log, { onDelete: "cascade" });
 Log.belongsTo(User);
 
 User.hasMany(Post, {

@@ -7,7 +7,6 @@ const PostInteraction = ({ post, myToken, myId, myRole }) => {
   const [content, setContent] = useState("");
   const [commentToggle, setCommentToggle] = useState(false);
 
-  //   useEffect(() => {
   const checkComments = () => {
     axios
       .get(
@@ -21,8 +20,6 @@ const PostInteraction = ({ post, myToken, myId, myRole }) => {
       .then((res) => setCommentsData(res.data));
     setCommentToggle(true);
   };
-  //     checkComments();
-  //   }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -62,7 +59,7 @@ const PostInteraction = ({ post, myToken, myId, myRole }) => {
         J'aime<span>{/* donnée dynamique de table like</p> */}</span>
       </button>
       <button onClick={() => checkComments()}>
-        Commenter<span>{/* donnée dynamique de table com</p> */}</span>
+        Commenter<span>{/* donnée dynamique de table like</p> */}</span>
       </button>
 
       {commentToggle ? (
