@@ -3,7 +3,8 @@ const { Comment, Post, User } = require("../models/index");
 exports.getAllComments = (req, res, next) => {
   Comment.findAll({
     where: { postId: req.params.id },
-    include: User,
+    order: [["createdAt", "DESC"]],
+    include: [{ model: User, attributes: ["name"] }],
   })
     .then((comments) => res.status(200).json(comments))
     .catch((error) => res.status(404).json({ error }));
@@ -12,9 +13,7 @@ exports.getAllComments = (req, res, next) => {
 exports.getOneComment = (req, res, next) => {
   Comment.findOne({
     where: { id: req.params.id },
-    include: {
-      Model: User,
-    },
+    include: [{ model: User, attributes: ["name"] }],
   })
     .then((comment) => res.status(200).json(comment))
     .catch((error) => res.status(404).json({ error }));
@@ -29,7 +28,6 @@ exports.createComment = (req, res, next) => {
   })
     .then((comment) =>
       res.status(201).json({
-        commentId: comment.id,
         message: "Nouveau commentaire sauvegardé",
       })
     )

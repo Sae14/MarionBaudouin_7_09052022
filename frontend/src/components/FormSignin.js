@@ -27,7 +27,8 @@ const FormSignin = () => {
         setEmail("");
         setPassword("");
         navigate("/");
-      });
+      })
+      .catch((error) => console.log(error));
   };
 
   return (

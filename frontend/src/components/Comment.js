@@ -1,21 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { dateFormater } from "./Utils";
 
 const Comment = ({ comment, myToken, myId, myRole }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editContent, setEditContent] = useState("");
-
-  const dateFormater = (date) => {
-    let newDate = new Date(date).toLocaleDateString("fr-FR", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "numeric",
-      minute: "numeric",
-      second: "numeric",
-    });
-    return newDate;
-  };
 
   const handleEdit = () => {
     const data = {
@@ -34,7 +23,8 @@ const Comment = ({ comment, myToken, myId, myRole }) => {
       )
       .then(() => {
         setIsEditing(false);
-      });
+      })
+      .catch((error) => console.log(error));
   };
 
   const handleDelete = () => {

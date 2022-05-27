@@ -22,7 +22,7 @@
                     resize: none;
                     height: 70px;
                     padding: 5px;
-                    border: 2px solid $color-main;
+                    border: 2px solid $color-third;
                     border-radius: 5px;
                 }
                 .createpost-inputs-container {
@@ -39,11 +39,11 @@
                         font-weight: 600;
                         padding: 7px 0;
                         border-radius: 5px;
-                        border: 2px solid $color-main;
+                        border: 2px solid $color-third;
                         transition: 0.4s;
        
                         &:hover {
-                            box-shadow: 2px 2px 8px $color-main;
+                            box-shadow: 2px 2px 8px $color-third;
                         }
                     }
 
@@ -51,13 +51,13 @@
                         cursor: pointer;
                         background-color: $color-action;
                         border-radius: 5px;
-                        border: 2px solid $color-main;
+                        border: 2px solid $color-third;
                         padding: 7px;
                         font-weight: 600;
                         transition: 0.4s;
 
                         &:hover {
-                            box-shadow: 2px 2px 8px $color-main;
+                            box-shadow: 2px 2px 8px $color-third;
                         }
                     }
                 }

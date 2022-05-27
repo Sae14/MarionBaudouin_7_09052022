@@ -1,14 +1,22 @@
 const { Post, User } = require("../models/index");
 const fs = require("fs");
+const { Sequelize } = require("sequelize");
 
 exports.getAllPosts = (req, res, next) => {
-  Post.findAll({ include: User })
+  Post.findAll({
+    order: [["createdAt", "DESC"]],
+    include: { model: User, attributes: ["name"] },
+  })
     .then((posts) => res.status(200).json(posts))
     .catch((error) => res.status(404).json({ error }));
 };
 
 exports.getOnePost = (req, res, next) => {
-  Post.findOne({ where: { id: req.params.id } })
+  Post.findOne({
+    where: { id: req.params.id },
+    include: [{ model: User, attributes: ["name"] }],
+  })
+    // ({ where: { id: req.params.id }, include: { model: User, attributes: ["name"] }))
     .then((post) => res.status(200).json(post))
     .catch((error) => res.status(404).json({ error }));
 };
@@ -34,14 +42,24 @@ exports.createPost = (req, res, next) => {
 
   // json parse ? bug
   Post.create(postObject)
-    .then((post) =>
-      res.status(201).json({
-        postId: post.id,
-        message: "Nouveau post sauvegardé",
-      })
-    )
+    .then((post) => {
+      // User.findOne;
+      const postObjectt = {
+        // id: post.id,
+        content: post.content,
+        image: post.image,
+        // createdAt: post.createdAt,
+        // updatedAt: post.updatedAt,
+        // userId: post.userId,
+        // user: post.user.name,
+      };
+      res.status(201).json(postObjectt);
+    })
     .catch((error) => res.status(400).json({ error }));
 };
+// postImage: post.image,
+// postContent: post.content,
+// message: "Nouveau post sauvegardé",
 
 exports.modifyPost = (req, res, next) => {
   Post.findOne({
@@ -67,8 +85,9 @@ exports.modifyPost = (req, res, next) => {
               },
               { where: { id: req.params.id } }
             )
-              .then(() =>
+              .then((post) =>
                 res.status(200).json({
+                  postImage: post.image,
                   message: "Post modifié avec remplacement de l'image",
                 })
               )
@@ -93,7 +112,11 @@ exports.modifyPost = (req, res, next) => {
               },
             }
           )
-            .then(() => res.status(200).json({ message: "Post modifié" }))
+            .then((post) =>
+              res
+                .status(200)
+                .json({ postImage: post.image, message: "Post modifié" })
+            )
             .catch((error) => res.status(400).json({ error }));
           // }
         }

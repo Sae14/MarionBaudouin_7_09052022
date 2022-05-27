@@ -1,10 +1,3 @@
-// "pseudo": "alix",
-//       "mail": "alix.duchamp@gmail.com",
-//       "password": "blouhachecrypt",
-//       "role": "employe",
-//       "bio": "coucou",
-//       "id": 1
-
 .profile-page {
 
     h2 {
@@ -41,7 +34,7 @@
                 resize: none;
                 height: 70px;
                 padding: 5px;
-                border: 2px solid $color-main;
+                border: 2px solid $color-third;
                 border-radius: 5px;
             }
         
@@ -56,12 +49,12 @@
                     font-weight: 600;
                     padding: 8px 0;
                     border-radius: 5px;
-                    border: 2px solid $color-main;
+                    border: 2px solid $color-third;
                     resize: none;
                     transition: 0.4s;
 
                     &:hover {
-                        box-shadow: 2px 2px 8px $color-main;
+                        box-shadow: 2px 2px 8px $color-third;
                     }
                 }
             }

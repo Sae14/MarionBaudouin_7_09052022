@@ -24,7 +24,8 @@ const FormSignup = () => {
         setEmail("");
         setPseudo("");
         setPassword("");
-      });
+      })
+      .catch((error) => console.log(error));
   };
 
   return (

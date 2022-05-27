@@ -17,8 +17,11 @@ const PostInteraction = ({ post, myToken, myId, myRole }) => {
           },
         }
       )
-      .then((res) => setCommentsData(res.data));
-    setCommentToggle(true);
+      .then((res) => {
+        setCommentsData(res.data);
+        setCommentToggle(true);
+      })
+      .catch((error) => console.log(error));
   };
 
   const handleSubmit = (e) => {
@@ -43,7 +46,8 @@ const PostInteraction = ({ post, myToken, myId, myRole }) => {
         .then((res) => {
           console.log(res.data.commentId);
           resetPost();
-        });
+        })
+        .catch((error) => console.log(error));
     } else {
       alert("Veuillez ajouter un message");
     }

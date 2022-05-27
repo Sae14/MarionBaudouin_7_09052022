@@ -5,28 +5,36 @@ import Footer from "../components/Footer";
 import Logo from "../components/Logo";
 import Navigation from "../components/Navigation";
 import Post from "../components/Post";
+import { useDispatch, useSelector } from "react-redux";
+import { setPostsData, addPost } from "../feature/postSlice";
 
-const Home = ({ myToken, myId, myRole }) => {
+const Home = () => {
   const navigate = useNavigate();
-  const [postsData, setPostsData] = useState([]);
+  // const [postsData, setPostsData] = useState([]);
   const [content, setContent] = useState("");
   const [file, setFile] = useState();
+  const dispatch = useDispatch();
+  const postsData = useSelector((state) => state.posts.posts);
+  const myId = sessionStorage.getItem("myid");
+  const myRole = sessionStorage.getItem("myrole");
+  const myToken = sessionStorage.getItem("mytoken");
+
+  const getData = () => {
+    axios
+      .get(`http://localhost:${process.env.REACT_APP_PORT}/api/posts`, {
+        headers: {
+          Authorization: `Bearer ${myToken}`,
+        },
+      })
+      .then((res) => dispatch(setPostsData(res.data)))
+      .catch((error) => console.log(error));
+  };
 
   useEffect(() => {
-    const getData = () => {
-      if (!myToken) {
-        navigate("/signin");
-      }
-
-      axios
-        .get(`http://localhost:${process.env.REACT_APP_PORT}/api/posts`, {
-          headers: {
-            Authorization: `Bearer ${myToken}`,
-          },
-        })
-        .then((res) => setPostsData(res.data));
-    };
     getData();
+    if (!myToken) {
+      navigate("/signin");
+    }
   }, []);
 
   const handleSubmit = (e) => {
@@ -47,10 +55,45 @@ const Home = ({ myToken, myId, myRole }) => {
             },
           }
         )
-        .then((res) => {
-          console.log(res.data.postId);
-          resetPost();
+        .then(
+          (res) => {
+            dispatch(addPost([res.data.postObjectt]));
+          }
+          // const dataObject = Object.fromEntries(data);
+          // const dataObject = {
+          //   content: res.postContent,
+          //   image: res.postImage,
+          // };
+          // Object.fromEntries(data);
+          // dispatch(addPost([dataObject.content, dataObject.image.name]));
+          // dispatch(addPost([data.content, res.postImage, res.postId]));
+          // dispatch(addPost([dataObject.content, dataObject.image]))
+          // dispatch(addPost([res.postContent, res.postImage]));
+          // dispatch(addPost());
+          // dispatch(addPost(dataObject));
+          // dispatch(addPost(dataObject));
+          // dispatch(addPost([dataObject.content, dataObject.image]));
+          // dispatch(addPost(dataObject));
+          // dispatch(addPost(res.data));
+          // console.log(res.data);
+          // dispatch(addPost(res.data)).then(() => dispatch(getData()));
+
+          // dispatch(addPost(dataObject));
+        )
+        .then(() => {
+          dispatch(getData());
         });
+      // .then(() => {
+      //   dispatch(getData());
+      // });
+      // .catch((error) => console.log(error));
+      resetPost();
+      // const dataObject = Object.fromEntries(data);
+      // const dataObject = Object.fromEntries(data);
+      // const dataObject = data.entries();
+      // dispatch(addPost(dataObject));
+      // console.log(res.data.postId);
+      //
     } else {
       alert("Veuillez ajouter un message et/ou une image");
     }
@@ -97,13 +140,13 @@ const Home = ({ myToken, myId, myRole }) => {
           </form>
         </div>
 
+        {/*   */}
         <section className="posts-container">
-          {postsData
-            .sort((a, b) => b.createdAt - a.createdAt)
-            .map((post) => (
+          {postsData &&
+            [...postsData].map((posts, index) => (
               <Post
-                key={post.id}
-                post={post}
+                key={index}
+                post={posts}
                 myToken={myToken}
                 myId={myId}
                 myRole={myRole}

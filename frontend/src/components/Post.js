@@ -2,31 +2,21 @@
 import axios from "axios";
 import React, { useState } from "react";
 import PostInteraction from "./PostInteraction";
+import { dateFormater } from "./Utils";
+import { useDispatch } from "react-redux";
+import { editPost, deletePost } from "../feature/postSlice";
 
 const Post = ({ post, myToken, myId, myRole }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editContent, setEditContent] = useState("");
   const [file, setFile] = useState();
-
-  const dateFormater = (date) => {
-    let newDate = new Date(date).toLocaleDateString("fr-FR", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "numeric",
-      minute: "numeric",
-      second: "numeric",
-    });
-    return newDate;
-  };
+  const dispatch = useDispatch();
 
   const handleEdit = () => {
     const data = new FormData();
     if (file) data.append("image", file);
     data.append("content", editContent ? editContent : post.content);
-    // const data = {
-    //   content: editContent ? editContent : post.content,
-    // };
+
     axios
       .put(
         `http://localhost:${process.env.REACT_APP_PORT}/api/posts/${post.id}`,
@@ -37,9 +27,24 @@ const Post = ({ post, myToken, myId, myRole }) => {
           },
         }
       )
-      .then(() => {
+      .then((res) => {
+        // const dataObject = {
+        //   content: data.content,
+        //   image: res.postImage,
+        //   id: post.id,
+        // };
+        // const dataObject = Object.fromEntries(data);
+        dispatch(
+          // editPost([dataObject.content, dataObject.image.name, post.id])
+          // editPost([data.content, res.postImage, post.id])
+          // editPost(dataObject)
+          // editPost([dataObject.content, dataObject.image, dataObject.id])
+          editPost([data.content, res.data.postImage, post.id])
+        );
+
         setIsEditing(false);
-      });
+      })
+      .catch((error) => console.log(error));
   };
 
   const handlePicture = (e) => {
@@ -47,14 +52,16 @@ const Post = ({ post, myToken, myId, myRole }) => {
   };
 
   const handleDelete = () => {
-    axios.delete(
-      `http://localhost:${process.env.REACT_APP_PORT}/api/posts/${post.id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${myToken}`,
-        },
-      }
-    );
+    axios
+      .delete(
+        `http://localhost:${process.env.REACT_APP_PORT}/api/posts/${post.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${myToken}`,
+          },
+        }
+      )
+      .then(() => dispatch(deletePost(post.id)));
   };
 
   return (

@@ -1,22 +1,25 @@
-// @font-face {
-//   font-family: "font-1";
-//   src: url(../assets/fonts/Roboto-Medium.ttf);
-// }
+@font-face {
+  font-family: "font-1";
+  src: url(../assets/font/Lato-Regular.ttf);
+}
 
-// @font-face {
-//   font-family: "font-2";
-//   src: url(../assets/fonts/Roboto-Regular.ttf);
-// }
+@font-face {
+  font-family: "font-2";
+  src: url(../assets/font/Lato-BoldItalic.ttf);
+}
 
-// $font-1: "font-1", sans-serif;
-// $font-2: "font-2", sans-serif;
+$font-1: "font-1", sans-serif;
+$font-2: "font-2", sans-serif;
 
-$color-main: #8CB8F2;
-$color-text: #292929;
-$color-action: #FFAB22;
-$color-background-main: rgb(238, 237, 237, 0.568);
-$color-background-darker: #e4dcdc;
-
+$color-main: #FD2D01;
+$color-text: black;
+$color-action: #FFD7D7;
+$color-third: #4E5166;
+$color-background-main: #FFD7D7;
+$color-background-darker: white;
+// #4E5166
+// #e4dcdc
+// rgb(238, 237, 237, 0.568)
 * {
     padding: 0;
     margin: 0;
@@ -25,7 +28,7 @@ $color-background-darker: #e4dcdc;
 
   body {
     background: $color-background-main;
-    // font-family: Arial, Helvetica, sans-serif;
+    font-family: $font-1;
   }
 
 li {
@@ -38,9 +41,9 @@ header {
   background-color: $color-main;
   align-items:center;
   padding: 0 30px;
-  border-bottom: 3px groove $color-background-darker;
+  border-bottom: 3px groove $color-third;
 }
 
-// h1, h2, h3, h4 {
-//   font-family: $font-2;
-// }
+h1, h2, h3, h4 {
+  font-family: $font-2;
+}
