@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCommentsData, addComment } from "../feature/commentSlice";
 
 const PostInteraction = ({ post, myToken, myId, myRole }) => {
-  // const [commentsData, setCommentsData] = useState([]);
   const dispatch = useDispatch();
   const commentsData = useSelector((state) => state.comments.comment);
   const [content, setContent] = useState("");
@@ -49,7 +48,6 @@ const PostInteraction = ({ post, myToken, myId, myRole }) => {
         )
         .then((res) => {
           dispatch(addComment(res.data.comobject));
-          // dispatch(checkComments);
           resetPost();
         })
         .catch((error) => console.log(error));

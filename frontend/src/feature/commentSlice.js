@@ -11,6 +11,10 @@ export const commentSlice = createSlice({
     },
     addComment: (state, { payload }) => {
       state.comment.push(payload);
+      state.comment.sort(
+        (a, b) =>
+          new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
+      );
     },
     deleteComment: (state, { payload }) => {
       state.comment = state.comment.filter((comment) => comment.id !== payload);

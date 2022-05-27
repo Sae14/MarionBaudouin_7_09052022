@@ -22,16 +22,9 @@ exports.getOnePost = (req, res, next) => {
 };
 
 exports.createPost = (req, res, next) => {
-  // const postObjectt = JSON.parse(req.body);
-  // const postObjectt = req.body;
   const postObject = {
-    // ...postObjectt,
     content: req.body.content,
     userId: req.auth.userId,
-    // content: JSON.parse(req.body.body),
-    // ...JSON.parse(req.body),
-    // content: req.body.post,
-    // content: JSON.parse(req.body),
   };
 
   if (req.file) {
@@ -40,7 +33,6 @@ exports.createPost = (req, res, next) => {
     }`;
   }
 
-  // json parse ? bug
   Post.create(postObject)
     .then((post) => {
       Post.findOne({
@@ -49,24 +41,10 @@ exports.createPost = (req, res, next) => {
       }).then((postres) =>
         res.status(201).json({ postres, message: "Post créé avec succès !" })
       );
-
-      // User.findOne({ where: { id: req.auth.userId } }).then((user) => {
-      //   const postObjectt = {
-      //     id: post.id,
-      //     content: post.content,
-      //     image: post.image,
-      //     createdAt: post.createdAt,
-      //     updatedAt: post.updatedAt,
-      //     userId: post.userId,
-      //     user: user.name,
-      //   };
     })
 
     .catch((error) => res.status(400).json({ error }));
 };
-// postImage: post.image,
-// postContent: post.content,
-// message: "Nouveau post sauvegardé",
 
 exports.modifyPost = (req, res, next) => {
   Post.findOne({

@@ -10,7 +10,12 @@ export const postSlice = createSlice({
       state.posts = payload;
     },
     addPost: (state, { payload }) => {
+      console.log(payload);
       state.posts.push(payload);
+      state.posts.sort(
+        (a, b) =>
+          new Date(b.createdAt).valueOf() - new Date(a.createdAt).valueOf()
+      );
     },
     deletePost: (state, { payload }) => {
       state.posts = state.posts.filter((post) => post.id !== payload);

@@ -11,8 +11,6 @@ import PostForm from "../components/PostForm";
 
 const Home = () => {
   const navigate = useNavigate();
-  // const [postsData, setPostsData] = useState([]);
-
   const dispatch = useDispatch();
   const postsData = useSelector((state) => state.posts.posts);
   const myId = sessionStorage.getItem("myid");

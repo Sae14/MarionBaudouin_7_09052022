@@ -78,15 +78,6 @@ exports.getOneUser = (req, res, next) => {
 exports.modifyUser = (req, res, next) => {
   User.findOne({
     where: { id: req.params.id },
-    // include: User,
-    // include: {
-    //   model: User,
-    //   where: {
-    //     id: req.auth,
-
-    // role: Sequelize.col("user.role"),
-    // },
-    // },
   })
     .then((user) => {
       if (req.auth.userId == user.id || req.auth.userRole == "ADMIN") {

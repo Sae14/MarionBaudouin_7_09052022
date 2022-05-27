@@ -25,7 +25,6 @@ exports.createComment = (req, res, next) => {
     userId: req.auth.userId,
     postId: req.body.postId,
   };
-  // const postObject = JSON.parse(req.body.body);
   Comment.create(commentObject)
     .then((comment) => {
       Comment.findOne({
@@ -37,13 +36,6 @@ exports.createComment = (req, res, next) => {
           .json({ comobject, message: "Nouveau commentaire sauvegardé" })
       );
     })
-    // .then(() =>
-    //   res.status(201).json({
-    //     // commentpost: comment.content,
-    //     commentObject,
-    //     message: "Nouveau commentaire sauvegardé",
-    //   })
-
     .catch((error) => res.status(400).json({ error }));
 };
 
