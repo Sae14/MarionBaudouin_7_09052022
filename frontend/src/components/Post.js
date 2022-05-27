@@ -3,14 +3,16 @@ import axios from "axios";
 import React, { useState } from "react";
 import PostInteraction from "./PostInteraction";
 import { dateFormater } from "./Utils";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { editPost, deletePost } from "../feature/postSlice";
 
+// post props
 const Post = ({ post, myToken, myId, myRole }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editContent, setEditContent] = useState("");
   const [file, setFile] = useState();
   const dispatch = useDispatch();
+  // const post = useSelector((state) => state.posts.posts.id);
 
   const handleEdit = () => {
     const data = new FormData();
@@ -30,16 +32,27 @@ const Post = ({ post, myToken, myId, myRole }) => {
       .then((res) => {
         // const dataObject = {
         //   content: data.content,
+        //   image: data.image,
+        //   id: post.id,
+        // };
+        // const dataObject = {
+        //   content: data.content,
         //   image: res.postImage,
         //   id: post.id,
         // };
+        // const dataObject = res.data.newObject;
         // const dataObject = Object.fromEntries(data);
         dispatch(
           // editPost([dataObject.content, dataObject.image.name, post.id])
           // editPost([data.content, res.postImage, post.id])
           // editPost(dataObject)
           // editPost([dataObject.content, dataObject.image, dataObject.id])
-          editPost([data.content, res.data.postImage, post.id])
+          // editPost([res.data.content, res.data.postImage, post.id])
+          editPost([
+            res.data.postObject.content,
+            res.data.postObject.image,
+            post.id,
+          ])
         );
 
         setIsEditing(false);

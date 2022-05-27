@@ -30,7 +30,7 @@ export const postSlice = createSlice({
     },
   },
 });
-// , editPost
+
 export const { setPostsData, addPost, deletePost, editPost } =
   postSlice.actions;
 

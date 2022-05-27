@@ -20,17 +20,30 @@ exports.getOneComment = (req, res, next) => {
 };
 
 exports.createComment = (req, res, next) => {
-  // const postObject = JSON.parse(req.body.body);
-  Comment.create({
+  const commentObject = {
     content: req.body.content,
     userId: req.auth.userId,
     postId: req.body.postId,
-  })
-    .then((comment) =>
-      res.status(201).json({
-        message: "Nouveau commentaire sauvegardé",
-      })
-    )
+  };
+  // const postObject = JSON.parse(req.body.body);
+  Comment.create(commentObject)
+    .then((comment) => {
+      Comment.findOne({
+        where: { id: comment.id },
+        include: { model: User, attributes: ["name"] },
+      }).then((comobject) =>
+        res
+          .status(201)
+          .json({ comobject, message: "Nouveau commentaire sauvegardé" })
+      );
+    })
+    // .then(() =>
+    //   res.status(201).json({
+    //     // commentpost: comment.content,
+    //     commentObject,
+    //     message: "Nouveau commentaire sauvegardé",
+    //   })
+
     .catch((error) => res.status(400).json({ error }));
 };
 

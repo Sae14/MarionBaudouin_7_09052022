@@ -14,9 +14,9 @@ exports.getAllPosts = (req, res, next) => {
 exports.getOnePost = (req, res, next) => {
   Post.findOne({
     where: { id: req.params.id },
-    include: [{ model: User, attributes: ["name"] }],
+    include: { model: User, attributes: ["name"] },
+    // include: [{ model: User, attributes: ["name"] }],
   })
-    // ({ where: { id: req.params.id }, include: { model: User, attributes: ["name"] }))
     .then((post) => res.status(200).json(post))
     .catch((error) => res.status(404).json({ error }));
 };
@@ -43,18 +43,25 @@ exports.createPost = (req, res, next) => {
   // json parse ? bug
   Post.create(postObject)
     .then((post) => {
-      // User.findOne;
-      const postObjectt = {
-        // id: post.id,
-        content: post.content,
-        image: post.image,
-        // createdAt: post.createdAt,
-        // updatedAt: post.updatedAt,
-        // userId: post.userId,
-        // user: post.user.name,
-      };
-      res.status(201).json(postObjectt);
+      Post.findOne({
+        where: { id: post.id },
+        include: { model: User, attributes: ["name"] },
+      }).then((postres) =>
+        res.status(201).json({ postres, message: "Post créé avec succès !" })
+      );
+
+      // User.findOne({ where: { id: req.auth.userId } }).then((user) => {
+      //   const postObjectt = {
+      //     id: post.id,
+      //     content: post.content,
+      //     image: post.image,
+      //     createdAt: post.createdAt,
+      //     updatedAt: post.updatedAt,
+      //     userId: post.userId,
+      //     user: user.name,
+      //   };
     })
+
     .catch((error) => res.status(400).json({ error }));
 };
 // postImage: post.image,
@@ -69,8 +76,7 @@ exports.modifyPost = (req, res, next) => {
       if (req.auth.userId == post.userId || req.auth.userRole == "ADMIN") {
         // S'il y a modification de l'image précédente :
         if (req.file && post.image) {
-          const postObjectFile = {
-            // ...JSON.parse(req.body),
+          const postObject = {
             content: req.body.content,
             image: `${req.protocol}://${req.get("host")}/images/${
               req.file.filename
@@ -80,17 +86,16 @@ exports.modifyPost = (req, res, next) => {
           fs.unlink(`images/${filename}`, () => {
             Post.update(
               {
-                ...postObjectFile,
-                // , id: req.params.id
+                ...postObject,
               },
               { where: { id: req.params.id } }
             )
-              .then((post) =>
+              .then(() => {
                 res.status(200).json({
-                  postImage: post.image,
+                  postObject,
                   message: "Post modifié avec remplacement de l'image",
-                })
-              )
+                });
+              })
               .catch((error) => res.status(400).json({ error }));
           });
         } else {
@@ -102,20 +107,13 @@ exports.modifyPost = (req, res, next) => {
               req.file.filename
             }`;
           }
-          // const postObject = { ...req.body };
-          Post.update(
-            postObject,
-            // id: req.params.id
-            {
-              where: {
-                id: req.params.id,
-              },
-            }
-          )
-            .then((post) =>
-              res
-                .status(200)
-                .json({ postImage: post.image, message: "Post modifié" })
+          Post.update(postObject, {
+            where: {
+              id: req.params.id,
+            },
+          })
+            .then(() =>
+              res.status(200).json({ postObject, message: "Post modifié" })
             )
             .catch((error) => res.status(400).json({ error }));
           // }

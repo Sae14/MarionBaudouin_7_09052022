@@ -1,13 +1,18 @@
 import axios from "axios";
 import React, { useState } from "react";
 import Comment from "../components/Comment";
+import { useDispatch, useSelector } from "react-redux";
+import { setCommentsData, addComment } from "../feature/commentSlice";
 
 const PostInteraction = ({ post, myToken, myId, myRole }) => {
-  const [commentsData, setCommentsData] = useState([]);
+  // const [commentsData, setCommentsData] = useState([]);
+  const dispatch = useDispatch();
+  const commentsData = useSelector((state) => state.comments.comment);
   const [content, setContent] = useState("");
   const [commentToggle, setCommentToggle] = useState(false);
 
   const checkComments = () => {
+    setCommentToggle(true);
     axios
       .get(
         `http://localhost:${process.env.REACT_APP_PORT}/api/comments/${post.id}`,
@@ -18,8 +23,7 @@ const PostInteraction = ({ post, myToken, myId, myRole }) => {
         }
       )
       .then((res) => {
-        setCommentsData(res.data);
-        setCommentToggle(true);
+        dispatch(setCommentsData(res.data));
       })
       .catch((error) => console.log(error));
   };
@@ -44,7 +48,8 @@ const PostInteraction = ({ post, myToken, myId, myRole }) => {
           }
         )
         .then((res) => {
-          console.log(res.data.commentId);
+          dispatch(addComment(res.data.comobject));
+          // dispatch(checkComments);
           resetPost();
         })
         .catch((error) => console.log(error));
@@ -82,17 +87,15 @@ const PostInteraction = ({ post, myToken, myId, myRole }) => {
             </form>
           </div>
           <section className="comment-list-container">
-            {commentsData
-              .sort((a, b) => b.createdAt - a.createdAt)
-              .map((comment) => (
-                <Comment
-                  key={comment.id}
-                  comment={comment}
-                  myToken={myToken}
-                  myId={myId}
-                  myRole={myRole}
-                />
-              ))}
+            {commentsData?.map((comment, index) => (
+              <Comment
+                key={index}
+                comment={comment}
+                myToken={myToken}
+                myId={myId}
+                myRole={myRole}
+              />
+            ))}
           </section>
           <button onClick={() => setCommentToggle(false)}>Fermer le fil</button>
         </div>

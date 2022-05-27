@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { dateFormater } from "./Utils";
+import { useDispatch, useSelector } from "react-redux";
+import { editComment, deleteComment } from "../feature/commentSlice";
 
 const Comment = ({ comment, myToken, myId, myRole }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editContent, setEditContent] = useState("");
+  const dispatch = useDispatch();
 
   const handleEdit = () => {
     const data = {
@@ -23,19 +26,22 @@ const Comment = ({ comment, myToken, myId, myRole }) => {
       )
       .then(() => {
         setIsEditing(false);
+        dispatch(editComment([data.content, comment.id]));
       })
       .catch((error) => console.log(error));
   };
 
   const handleDelete = () => {
-    axios.delete(
-      `http://localhost:${process.env.REACT_APP_PORT}/api/comments/${comment.id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${myToken}`,
-        },
-      }
-    );
+    axios
+      .delete(
+        `http://localhost:${process.env.REACT_APP_PORT}/api/comments/${comment.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${myToken}`,
+          },
+        }
+      )
+      .then(() => dispatch(deleteComment(comment.id)));
   };
 
   return (
