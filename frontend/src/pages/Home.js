@@ -43,12 +43,7 @@ const Home = () => {
       </header>
       <h2>Accueil</h2>
       <div className="home-post-posts-container">
-        <PostForm
-          getData={getData}
-          myId={myId}
-          myToken={myToken}
-          myRole={myRole}
-        />
+        <PostForm myId={myId} myToken={myToken} myRole={myRole} />
         {/*  && [...postsData] */}
         <section className="posts-container">
           {postsData?.map((posts, index) => (

@@ -11,7 +11,8 @@ const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [editBio, setEditBio] = useState("");
   // Useselector redux toolkit pr requêter ds store infos de l'utilisateur ?
-  const [myProfile, setMyProfile] = useState({});
+  const [myProfile, setMyProfile] = useState([]);
+  const [file, setFile] = useState();
   const myId = sessionStorage.getItem("myid");
   const myRole = sessionStorage.getItem("myrole");
   const myToken = sessionStorage.getItem("mytoken");
@@ -37,9 +38,10 @@ const Profile = () => {
   }, []);
 
   const handleEdit = () => {
-    const data = {
-      content: editBio ? editBio : myProfile.bio,
-    };
+    const data = new FormData();
+    if (file) data.append("image", file);
+    data.append("bio", editBio ? editBio : myProfile.bio);
+
     axios
       .put(
         `http://localhost:${process.env.REACT_APP_PORT}/api/auth/${myId}`,
@@ -54,6 +56,10 @@ const Profile = () => {
         setIsEditing(false);
       })
       .catch((error) => console.log(error));
+  };
+
+  const handlePicture = (e) => {
+    setFile(e.target.files[0]);
   };
 
   const handleDelete = () => {
@@ -89,11 +95,29 @@ const Profile = () => {
         </p>
 
         <div className="infos-container">
-          {/* <h4>Votre avatar</h4> */}
-
           <h4>Votre adresse email</h4>
 
           <p>{myProfile.email}</p>
+
+          <div className="img-profile-container">
+            {myProfile.image ? (
+              <img src={myProfile.image} alt="image du profil"></img>
+            ) : (
+              <img src="./default-profile-picture.png"></img>
+            )}
+          </div>
+          {isEditing ? (
+            <div>
+              <label htmlFor="file">Joindre une image : </label>
+              <input
+                type="file"
+                name="file"
+                id="file"
+                accept=".png, .jpg, .jpeg, .gif"
+                onChange={(e) => handlePicture(e)}
+              />
+            </div>
+          ) : null}
 
           <h4>Votre bio</h4>
           {isEditing ? (
@@ -105,11 +129,12 @@ const Profile = () => {
           ) : (
             <p>{editBio ? editBio : myProfile.bio}</p>
           )}
+
           <div className="button-container">
             {isEditing ? (
-              <button onClick={() => handleEdit()}>Valider bio</button>
+              <button onClick={() => handleEdit()}>Valider infos</button>
             ) : (
-              <button onClick={() => setIsEditing(true)}>Modifier bio</button>
+              <button onClick={() => setIsEditing(true)}>Modifier infos</button>
             )}
             <button
               onClick={() => {

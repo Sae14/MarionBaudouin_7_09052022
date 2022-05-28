@@ -55,6 +55,7 @@ const PostForm = ({ myToken, myId, myRole }) => {
         ></textarea>
 
         <div className="createpost-inputs-container">
+          <label htmlFor="file">Joindre une image :</label>
           <input
             type="file"
             name="file"

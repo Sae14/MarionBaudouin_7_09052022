@@ -4,7 +4,7 @@ exports.getAllComments = (req, res, next) => {
   Comment.findAll({
     where: { postId: req.params.id },
     order: [["createdAt", "DESC"]],
-    include: [{ model: User, attributes: ["name"] }],
+    include: [{ model: User, attributes: ["name", "image"] }],
   })
     .then((comments) => res.status(200).json(comments))
     .catch((error) => res.status(404).json({ error }));
@@ -13,7 +13,7 @@ exports.getAllComments = (req, res, next) => {
 exports.getOneComment = (req, res, next) => {
   Comment.findOne({
     where: { id: req.params.id },
-    include: [{ model: User, attributes: ["name"] }],
+    include: [{ model: User, attributes: ["name", "image"] }],
   })
     .then((comment) => res.status(200).json(comment))
     .catch((error) => res.status(404).json({ error }));
@@ -29,7 +29,7 @@ exports.createComment = (req, res, next) => {
     .then((comment) => {
       Comment.findOne({
         where: { id: comment.id },
-        include: { model: User, attributes: ["name"] },
+        include: { model: User, attributes: ["name", "image"] },
       }).then((comobject) =>
         res
           .status(201)
@@ -42,7 +42,6 @@ exports.createComment = (req, res, next) => {
 exports.modifyComment = (req, res, next) => {
   Comment.findOne({
     where: { id: req.params.id },
-    // include: User,
   })
     .then((comment) => {
       if (req.auth.userId == comment.userId || req.auth.userRole == "ADMIN") {

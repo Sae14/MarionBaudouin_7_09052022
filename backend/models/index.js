@@ -33,6 +33,9 @@ const User = sequelize.define("user", {
   bio: {
     type: DataTypes.STRING,
   },
+  image: {
+    type: DataTypes.STRING,
+  },
 });
 
 const Post = sequelize.define("post", {
@@ -53,6 +56,8 @@ const Comment = sequelize.define("comment", {
   },
 });
 
+const Like = sequelize.define("like");
+
 User.hasMany(Log, { onDelete: "cascade" });
 Log.belongsTo(User);
 
@@ -67,9 +72,15 @@ Comment.belongsTo(Post);
 User.hasMany(Comment, { onDelete: "cascade" });
 Comment.belongsTo(User);
 
+Post.hasMany(Like, { onDelete: "cascade" });
+Like.belongsTo(Post);
+
+User.hasMany(Like, { onDelete: "cascade" });
+Like.belongsTo(User);
+
 // (async () => {
 //   await sequelize.sync({ force: false, alter: true });
 //   console.log("Tables for all models were just (re)created!");
 // })();
 
-module.exports = { sequelize, User, Post, Log, Comment };
+module.exports = { sequelize, User, Post, Log, Comment, Like };

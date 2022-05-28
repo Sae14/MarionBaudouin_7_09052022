@@ -5,7 +5,7 @@ const { Sequelize } = require("sequelize");
 exports.getAllPosts = (req, res, next) => {
   Post.findAll({
     order: [["createdAt", "DESC"]],
-    include: { model: User, attributes: ["name"] },
+    include: { model: User, attributes: ["name", "image"] },
   })
     .then((posts) => res.status(200).json(posts))
     .catch((error) => res.status(404).json({ error }));
@@ -14,7 +14,7 @@ exports.getAllPosts = (req, res, next) => {
 exports.getOnePost = (req, res, next) => {
   Post.findOne({
     where: { id: req.params.id },
-    include: { model: User, attributes: ["name"] },
+    include: { model: User, attributes: ["name", "image"] },
     // include: [{ model: User, attributes: ["name"] }],
   })
     .then((post) => res.status(200).json(post))
@@ -37,7 +37,7 @@ exports.createPost = (req, res, next) => {
     .then((post) => {
       Post.findOne({
         where: { id: post.id },
-        include: { model: User, attributes: ["name"] },
+        include: { model: User, attributes: ["name", "image"] },
       }).then((postres) =>
         res.status(201).json({ postres, message: "Post créé avec succès !" })
       );

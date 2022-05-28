@@ -9,6 +9,27 @@ const PostInteraction = ({ post, myToken, myId, myRole }) => {
   const commentsData = useSelector((state) => state.comments.comment);
   const [content, setContent] = useState("");
   const [commentToggle, setCommentToggle] = useState(false);
+  const [likeToggle, setLikeToggle] = useState();
+
+  const handleLike = () => {
+    const data = {
+      postId: post.id,
+      userId: myId,
+    };
+
+    axios
+      .post(`http://localhost:${process.env.REACT_APP_PORT}/api/likes`, data, {
+        headers: {
+          Authorization: `Bearer ${myToken}`,
+        },
+      })
+      .then((res) => {
+        setLikeToggle(res.data.number);
+        // setIsEditing(false);
+        // dispatch(editComment([data.content, comment.id]));
+      })
+      .catch((error) => console.log(error));
+  };
 
   const checkComments = () => {
     setCommentToggle(true);
@@ -62,12 +83,8 @@ const PostInteraction = ({ post, myToken, myId, myRole }) => {
 
   return (
     <div className="btn-interact-container">
-      <button>
-        J'aime<span>{/* donnée dynamique de table like</p> */}</span>
-      </button>
-      <button onClick={() => checkComments()}>
-        Commenter<span>{/* donnée dynamique de table like</p> */}</span>
-      </button>
+      <button onClick={() => handleLike()}>J'aime</button>
+      <button onClick={() => checkComments()}>Commenter</button>
 
       {commentToggle ? (
         <div className="comments-container">

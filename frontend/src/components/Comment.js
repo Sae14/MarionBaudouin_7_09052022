@@ -47,6 +47,11 @@ const Comment = ({ comment, myToken, myId, myRole }) => {
   return (
     <div className="comment">
       <div className="comment-header">
+        {comment.user.image ? (
+          <img src={comment.user.image} alt="image du profil"></img>
+        ) : (
+          <img src="./default-profile-picture.png"></img>
+        )}
         <h3>{comment.user.name}</h3>
         <p>Posté le {dateFormater(comment.createdAt)}</p>
       </div>
