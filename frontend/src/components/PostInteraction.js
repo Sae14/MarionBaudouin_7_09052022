@@ -9,23 +9,22 @@ const PostInteraction = ({ post, myToken, myId, myRole }) => {
   const commentsData = useSelector((state) => state.comments.comment);
   const [content, setContent] = useState("");
   const [commentToggle, setCommentToggle] = useState(false);
-  const [likeToggle, setLikeToggle] = useState();
+  const [likeToggle, setLikeToggle] = useState(0);
+
+  const data = {
+    postId: post.id,
+  };
 
   const handleLike = () => {
-    const data = {
-      postId: post.id,
-      userId: myId,
-    };
-
     axios
-      .post(`http://localhost:${process.env.REACT_APP_PORT}/api/likes`, data, {
+      .put(`http://localhost:${process.env.REACT_APP_PORT}/api/likes`, data, {
         headers: {
           Authorization: `Bearer ${myToken}`,
         },
       })
       .then((res) => {
+        console.log(res.data);
         setLikeToggle(res.data.number);
-        // setIsEditing(false);
         // dispatch(editComment([data.content, comment.id]));
       })
       .catch((error) => console.log(error));
@@ -83,7 +82,16 @@ const PostInteraction = ({ post, myToken, myId, myRole }) => {
 
   return (
     <div className="btn-interact-container">
-      <button onClick={() => handleLike()}>J'aime</button>
+      {likeToggle == 0 ? (
+        <button onClick={() => handleLike()}>J'aime</button>
+      ) : (
+        <button
+          style={{ backgroundColor: "grey" }}
+          onClick={() => handleLike()}
+        >
+          J'aime
+        </button>
+      )}
       <button onClick={() => checkComments()}>Commenter</button>
 
       {commentToggle ? (

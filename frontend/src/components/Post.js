@@ -10,22 +10,6 @@ const Post = ({ post, myToken, myId, myRole }) => {
   const [editContent, setEditContent] = useState("");
   const [file, setFile] = useState();
   const dispatch = useDispatch();
-  const [likesData, setLikesData] = useState([]);
-
-  const getLikeData = () => {
-    axios
-      .get(
-        `http://localhost:${process.env.REACT_APP_PORT}/api/likes/${post.id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${myToken}`,
-          },
-        }
-      )
-      .then((res) => setLikesData(res.data))
-      // dispatch(setLikesData(res.data)))
-      .catch((error) => console.log(error));
-  };
 
   const handleEdit = () => {
     const data = new FormData();

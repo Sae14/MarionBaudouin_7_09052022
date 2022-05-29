@@ -5,7 +5,7 @@ const auth = require("../middleware/auth");
 
 // router.get("/:id", auth, likeCtrl.getAllLikes);
 // router.get("/:id", auth, likeCtrl.getOneLike);
-router.post("/", auth, likeCtrl.handleLike);
+router.put("/", auth, likeCtrl.handleLike);
 // router.put("/:id", auth, likeCtrl.modifyLike);
 // router.delete("/:id", auth, likeCtrl.deleteLike);
 

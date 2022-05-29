@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
     req.auth = { userId, userRole };
     if (
       req.body.userId &&
-      req.body.userId !== userId
+      req.body.userId != userId
       // ||  userRole == "USER"
     ) {
       throw "User ID non valable !";
