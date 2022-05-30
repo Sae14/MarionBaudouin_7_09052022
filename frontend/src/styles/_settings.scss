@@ -45,3 +45,13 @@ header {
 h1, h2, h3, h4 {
   font-family: $font-2;
 }
+
+.error-container {
+  font-weight: bold;
+  color: rgb(124, 15, 15)
+}
+
+.success-container {
+  font-weight: bold;
+  color: rgb(10, 82, 10)
+}

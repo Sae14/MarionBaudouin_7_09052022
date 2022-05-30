@@ -6,6 +6,7 @@ const FormSignin = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -28,7 +29,10 @@ const FormSignin = () => {
         setPassword("");
         navigate("/");
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error.message);
+        setError(true);
+      });
   };
 
   return (
@@ -37,6 +41,9 @@ const FormSignin = () => {
       <form onSubmit={(e) => handleLogin(e)}>
         <label htmlFor="email">Email</label>
         <input
+          style={{
+            border: error ? "2px solid red" : "2px solid #4E5166",
+          }}
           type="email"
           placeholder="Indiquez votre mail"
           id="email"
@@ -47,6 +54,9 @@ const FormSignin = () => {
         />
         <label htmlFor="password">Mot de passe</label>
         <input
+          style={{
+            border: error ? "2px solid red" : "2px solid #4E5166",
+          }}
           type="password"
           placeholder="Indiquez votre mot de passe"
           id="password"
@@ -56,6 +66,10 @@ const FormSignin = () => {
           value={password}
         />
         <input type="submit" value="Valider" />
+        <span className="error-container">
+          {error &&
+            "Le mail ou le mot de passe ne correspondent pas, veuillez réessayer"}
+        </span>
       </form>
     </div>
   );
