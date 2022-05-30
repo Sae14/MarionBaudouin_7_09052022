@@ -101,7 +101,7 @@ exports.modifyUser = (req, res, next) => {
             )
               .then(() => {
                 res.status(200).json({
-                  // userObject,
+                  userObject,
                   message: "Utilisateur modifié avec remplacement de l'image",
                 });
               })
@@ -123,7 +123,7 @@ exports.modifyUser = (req, res, next) => {
           })
             .then(() =>
               res.status(200).json({
-                // userObject,
+                userObject,
                 message: "Utilisateur modifié",
               })
             )
