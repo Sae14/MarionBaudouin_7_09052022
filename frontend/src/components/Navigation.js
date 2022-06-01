@@ -7,22 +7,24 @@ const Navigation = () => {
   };
 
   return (
-    <div className="navigation">
-      <ul>
+    <div>
+      <ul class="flex justify-center">
         <NavLink to="/" className={(nav) => (nav.isActive ? "nav-active" : "")}>
-          <li>Accueil</li>
+          <li class="px-3 pb-2 hover:font-bold">Accueil</li>
         </NavLink>
         <NavLink
           to="/profile"
           className={(nav) => (nav.isActive ? "nav-active" : "")}
         >
-          <li>Profil</li>
+          <li class="px-3 pb-2 hover:font-bold">Profil</li>
         </NavLink>
         <NavLink
           to="/signin"
           className={(nav) => (nav.isActive ? "nav-active" : "")}
         >
-          <li onClick={() => Logout()}>Déconnexion</li>
+          <li class="px-3 pb-2 hover:font-bold" onClick={() => Logout()}>
+            Déconnexion
+          </li>
         </NavLink>
       </ul>
     </div>

@@ -86,24 +86,35 @@ const PostInteraction = ({ post, myToken, myId, myRole }) => {
   };
 
   return (
-    <div className="btn-interact-container">
+    <div class="border-t-4 border-t-white">
       {likeToggle == 0 ? (
-        <button onClick={() => handleLike()}>J'aime</button>
+        <button
+          class="text-white bg-grey w-24 h-9 my-2 mr-2 cursor-pointer p-1 hover:bg-white hover:text-black rounded-xl"
+          onClick={() => handleLike()}
+        >
+          J'aime
+        </button>
       ) : (
         <button
-          style={{ backgroundColor: "grey" }}
+          class="bg-white text-black w-24 h-9 my-2 mr-2 cursor-pointer p-1 rounded-xl"
           onClick={() => handleLike()}
         >
           J'aime
         </button>
       )}
-      <button onClick={() => checkComments()}>Commenter</button>
+      <button
+        class="text-white bg-grey w-24 h-9 my-2 cursor-pointer p-1 hover:bg-white hover:text-black rounded-xl"
+        onClick={() => checkComments()}
+      >
+        Commenter
+      </button>
 
       {commentToggle ? (
-        <div className="comments-container">
-          <div className="comment-creation-container">
+        <div>
+          <div>
             <form onSubmit={(e) => handleSubmit(e)}>
               <textarea
+                class="w-full h-20 p-1 rounded-md mb-1"
                 style={{
                   border: error ? "2px solid red" : "2px solid #4E5166",
                 }}
@@ -111,17 +122,27 @@ const PostInteraction = ({ post, myToken, myId, myRole }) => {
                 onChange={(e) => setContent(e.target.value)}
                 value={content}
               ></textarea>
+
+              <input
+                class="text-white bg-grey w-24 h-9 my-2 cursor-pointer mr-2 p-1 hover:bg-white hover:text-black rounded-xl"
+                type="submit"
+                value="Publier"
+              />
               {content ? (
-                <button onClick={resetPost}>Réinitialiser</button>
+                <button
+                  class="text-sm text-white bg-grey w-23 h-8 my-2 cursor-pointer p-1 hover:bg-white hover:text-black rounded-xl"
+                  onClick={resetPost}
+                >
+                  Réinitialiser
+                </button>
               ) : null}
-              <input type="submit" value="Publier" />
-              <span className="error-container">
+              <span class="font-bold">
                 {error &&
                   "Veuillez envoyer un commentaire de moins de 280 caractères"}
               </span>
             </form>
           </div>
-          <section className="comment-list-container">
+          <section>
             {commentsData?.map((comment, index) => (
               <Comment
                 key={index}
@@ -132,7 +153,14 @@ const PostInteraction = ({ post, myToken, myId, myRole }) => {
               />
             ))}
           </section>
-          <button onClick={() => setCommentToggle(false)}>Fermer le fil</button>
+          <div class="border-t-4 border-t-white">
+            <button
+              class="text-white bg-grey w-24 h-9 my-7 mx-auto cursor-pointer p-1 hover:bg-white hover:text-black rounded-xl"
+              onClick={() => setCommentToggle(false)}
+            >
+              Fermer le fil
+            </button>
+          </div>
         </div>
       ) : null}
     </div>

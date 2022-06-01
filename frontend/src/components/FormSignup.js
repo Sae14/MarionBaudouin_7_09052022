@@ -49,11 +49,12 @@ const FormSignup = () => {
   };
 
   return (
-    <div className="form-signup-container">
-      <h2>Inscription</h2>
-      <form onSubmit={(e) => handleRegister(e)}>
+    <div class="m-2 p-2 rounded-lg bg-pink lg:w-2/4 lg:mx-auto xl:w-2/5">
+      <h2 class="py-4 mx-auto w-20 font-bold text-lg">Inscription</h2>
+      <form class="flex flex-col" onSubmit={(e) => handleRegister(e)}>
         <label htmlFor="email">Email</label>
         <input
+          class="my-4 rounded-md p-1"
           style={{
             border: errorMail ? "2px solid red" : "2px solid #4E5166",
           }}
@@ -65,11 +66,12 @@ const FormSignup = () => {
           onChange={(e) => setEmail(e.target.value)}
           value={email}
         />
-        <span className="error-container">
+        <span class="font-bold pb-3">
           {errorMail && "Veuillez entrer une adresse email au format valide"}
         </span>
         <label htmlFor="pseudo">Pseudo</label>
         <input
+          class="my-4 rounded-md p-1"
           style={{
             border: errorPseudo ? "2px solid red" : "2px solid #4E5166",
           }}
@@ -81,12 +83,13 @@ const FormSignup = () => {
           onChange={(e) => setPseudo(e.target.value)}
           value={pseudo}
         />
-        <span className="error-container">
+        <span class="font-bold pb-3">
           {errorPseudo &&
             "Votre pseudo doit faire entre 2 et 15 caractères et ne doit pas contenir de caractères spéciaux/numériques"}
         </span>
         <label htmlFor="password">Mot de passe</label>
         <input
+          class="my-4 rounded-md p-1"
           style={{
             border: errorPassword ? "2px solid red" : "2px solid #4E5166",
           }}
@@ -98,10 +101,14 @@ const FormSignup = () => {
           onChange={(e) => setPassword(e.target.value)}
           value={password}
         />
-        <span className="error-container">{errorPassword}</span>
+        <span class="font-bold pb-3">{errorPassword}</span>
 
-        <input type="submit" value="Valider" />
-        <span className="success-container">
+        <input
+          class="text-white bg-grey w-24 h-9 my-7 mx-auto cursor-pointer p-1 hover:bg-white hover:text-black rounded-xl"
+          type="submit"
+          value="Valider"
+        />
+        <span class="font-bold">
           {success &&
             "Inscription validée ! Vous pouvez dès à présent vous connecter"}
         </span>

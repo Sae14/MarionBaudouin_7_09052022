@@ -53,9 +53,10 @@ const PostForm = ({ myToken, myId, myRole }) => {
   };
 
   return (
-    <div className="form-container">
+    <div class="bg-pink mx-2 mb-16 rounded-lg p-2 lg:w-3/4 lg:mx-auto xl:w-3/5 2xl:w-2/5">
       <form onSubmit={(e) => handleSubmit(e)}>
         <textarea
+          class="w-full h-20 p-1 rounded-md mb-1"
           style={{
             border: error ? "2px solid red" : "2px solid #4E5166",
           }}
@@ -64,21 +65,35 @@ const PostForm = ({ myToken, myId, myRole }) => {
           value={content}
         ></textarea>
 
-        <div className="createpost-inputs-container">
-          <label htmlFor="file">Joindre une image :</label>
+        <div>
+          <label class="font-bold" htmlFor="file">
+            Joindre une image :
+          </label>
           <input
+            class="text-sm mb-2"
             type="file"
             name="file"
             id="file"
-            accept=".png, .jpg, .jpeg, .gif"
+            accept=".png, .jpg, .jpeg, .gif, .jfif"
             onChange={(e) => handlePicture(e)}
           />
-          {content || file ? (
-            <button onClick={resetPost}>Réinitialiser</button>
-          ) : null}
-          <input type="submit" value="Publier" />
+          <div class="border-t-4 border-t-white">
+            <input
+              class="text-white bg-grey w-24 h-9 my-2 cursor-pointer mr-2 p-1 hover:bg-white hover:text-black rounded-xl"
+              type="submit"
+              value="Publier"
+            />
+            {content || file ? (
+              <button
+                class="text-sm text-white bg-grey w-23 h-8 my-2 cursor-pointer p-1 hover:bg-white hover:text-black rounded-xl"
+                onClick={resetPost}
+              >
+                Réinitialiser
+              </button>
+            ) : null}
+          </div>
         </div>
-        <span className="error-container">
+        <span class="font-bold">
           {error && "Veuillez envoyer un message de moins de 280 caractères"}
         </span>
       </form>

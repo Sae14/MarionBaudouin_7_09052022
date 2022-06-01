@@ -6,13 +6,12 @@ import NavigationUnlog from "../components/NavigationUnlog";
 
 const Signup = () => {
   return (
-    <div className="signup-container">
-      <header>
+    <div>
+      <header class="bg-red p-2 border-b-grey border-b-2">
         <Logo />
         <NavigationUnlog />
       </header>
       <FormSignup />
-      <Footer />
     </div>
   );
 };

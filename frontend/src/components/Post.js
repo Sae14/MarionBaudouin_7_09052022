@@ -58,52 +58,73 @@ const Post = ({ post, myToken, myId, myRole }) => {
   };
 
   return (
-    <div className="post">
-      <div className="post-header">
+    <div class="mb-10 bg-pink rounded-lg p-2">
+      <div class="flex">
         {post.user.image ? (
-          <img src={post.user.image} alt="image du profil"></img>
+          <img
+            class="w-14 h-14 mr-2 rounded-2xl border-2 border-grey object-contain"
+            src={post.user.image}
+            alt="image du profil"
+          ></img>
         ) : (
-          <img src="./default-profile-picture.png"></img>
+          <img
+            class="w-14 h-14 mr-2 rounded-2xl border-2 border-grey object-contain"
+            src="./default-profile-picture.png"
+          ></img>
         )}
-        <h3>{post.user.name}</h3>
-        <p>Posté le {dateFormater(post.createdAt)}</p>
+        <div>
+          <h3 class="font-bold">{post.user.name}</h3>
+          <p class="italic">Posté le {dateFormater(post.createdAt)}</p>
+        </div>
       </div>
       {isEditing ? (
-        <div className="update-container">
+        <div class="flex flex-wrap py-2">
           <textarea
+            class="w-full h-20 p-1 rounded-md mb-1"
             defaultValue={editContent ? editContent : post.content}
             autoFocus
             onChange={(e) => setEditContent(e.target.value)}
           ></textarea>
           <label htmlFor="file">Joindre une image : </label>
           <input
+            class="text-sm"
             type="file"
             name="file"
             id="file"
-            accept=".png, .jpg, .jpeg, .gif"
+            accept=".png, .jpg, .jpeg, .gif, .jfif"
             onChange={(e) => handlePicture(e)}
           />
         </div>
       ) : (
-        <p>{editContent ? editContent : post.content}</p>
+        <p class="py-4">{editContent ? editContent : post.content}</p>
       )}
-      {post.image ? <img src={post.image} alt="image du post"></img> : null}
-
-      <PostInteraction
-        post={post}
-        myToken={myToken}
-        myId={myId}
-        myRole={myRole}
-      />
+      {post.image ? (
+        <img
+          class="max-w-full rounded-md max-h-64 object-cover mb-3"
+          src={post.image}
+          alt="image du post"
+        ></img>
+      ) : null}
 
       {myId == post.userId || myRole == "ADMIN" ? (
-        <div className="btn-action-container">
+        <div>
           {isEditing ? (
-            <button onClick={() => handleEdit()}>Valider</button>
+            <button
+              class="text-sm text-white bg-grey w-23 h-8 my-2 mr-2 cursor-pointer p-1 hover:bg-white hover:text-black rounded-xl"
+              onClick={() => handleEdit()}
+            >
+              Valider
+            </button>
           ) : (
-            <button onClick={() => setIsEditing(true)}>Modifier</button>
+            <button
+              class="text-sm text-white bg-grey w-23 h-8 my-2 mr-2 cursor-pointer p-1 hover:bg-white hover:text-black rounded-xl"
+              onClick={() => setIsEditing(true)}
+            >
+              Modifier
+            </button>
           )}
           <button
+            class="text-sm text-white bg-grey w-23 h-8 my-2 cursor-pointer p-1 hover:bg-white hover:text-black rounded-xl"
             onClick={() => {
               if (
                 window.confirm("Voulez-vous vraiment supprimer votre post ?")
@@ -116,6 +137,13 @@ const Post = ({ post, myToken, myId, myRole }) => {
           </button>
         </div>
       ) : null}
+
+      <PostInteraction
+        post={post}
+        myToken={myToken}
+        myId={myId}
+        myRole={myRole}
+      />
     </div>
   );
 };

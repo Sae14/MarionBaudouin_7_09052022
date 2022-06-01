@@ -4,7 +4,6 @@ import Logo from "../components/Logo";
 import Navigation from "../components/Navigation";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
 import { useDispatch, useSelector } from "react-redux";
 import { setUserData } from "../feature/userSlice";
 import ProfileUpdate from "../components/ProfileUpdate";
@@ -18,8 +17,11 @@ const Profile = () => {
   const myToken = sessionStorage.getItem("mytoken");
 
   //setMyProfile(user.data))
-  useEffect(() => {
-    const getData = () => {
+
+  const getData = () => {
+    if (!myToken) {
+      navigate("/signin");
+    } else {
       axios
         .get(
           `http://localhost:${process.env.REACT_APP_PORT}/api/auth/${myId}`,
@@ -33,22 +35,21 @@ const Profile = () => {
           dispatch(setUserData(res.data));
         })
         .catch((error) => console.log(error));
-    };
-
-    if (!myToken) {
-      navigate("/signin");
     }
+  };
+
+  useEffect(() => {
     getData();
   }, []);
 
   return (
-    <div className="profile-page">
-      <header>
+    <div>
+      <header class="bg-red p-2 border-b-grey border-b-2">
         <Logo />
         <Navigation />
       </header>
 
-      <h2>Profil</h2>
+      <h2 class="py-4 mx-auto w-14 font-bold text-lg ">Profil</h2>
 
       <ProfileUpdate myToken={myToken} myId={myId} myRole={myRole} />
 

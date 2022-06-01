@@ -45,37 +45,58 @@ const Comment = ({ comment, myToken, myId, myRole }) => {
   };
 
   return (
-    <div className="comment">
-      <div className="comment-header">
+    <div class="my-3 bg-white rounded-lg p-2">
+      <div class="flex">
         {comment.user.image ? (
-          <img src={comment.user.image} alt="image du profil"></img>
+          <img
+            class="w-14 h-14 mr-2 rounded-2xl border-2 border-grey object-contain"
+            src={comment.user.image}
+            alt="image du profil"
+          ></img>
         ) : (
-          <img src="./default-profile-picture.png"></img>
+          <img
+            class="w-14 h-14 mr-2 rounded-2xl border-2 border-grey object-contain"
+            src="./default-profile-picture.png"
+          ></img>
         )}
-        <h3>{comment.user.name}</h3>
-        <p>Posté le {dateFormater(comment.createdAt)}</p>
+        <div>
+          <h3 class="font-bold">{comment.user.name}</h3>
+          <p class="italic">Posté le {dateFormater(comment.createdAt)}</p>
+        </div>
       </div>
 
       {isEditing ? (
-        <div className="update-container">
+        <div>
           <textarea
+            class="w-full h-20 p-1 rounded-md mb-1"
             defaultValue={editContent ? editContent : comment.content}
             autoFocus
             onChange={(e) => setEditContent(e.target.value)}
           ></textarea>
         </div>
       ) : (
-        <p>{editContent ? editContent : comment.content}</p>
+        <p class="py-4">{editContent ? editContent : comment.content}</p>
       )}
 
       {myId == comment.userId || myRole == "ADMIN" ? (
-        <div className="btn-action-container">
+        <div>
           {isEditing ? (
-            <button onClick={() => handleEdit()}>Valider</button>
+            <button
+              class="text-sm text-white bg-grey w-23 h-8 my-2 mr-2 cursor-pointer p-1 hover:bg-pink hover:text-black rounded-xl"
+              onClick={() => handleEdit()}
+            >
+              Valider
+            </button>
           ) : (
-            <button onClick={() => setIsEditing(true)}>Modifier</button>
+            <button
+              class="text-sm text-white bg-grey w-23 h-8 my-2 mr-2 cursor-pointer p-1 hover:bg-pink hover:text-black rounded-xl"
+              onClick={() => setIsEditing(true)}
+            >
+              Modifier
+            </button>
           )}
           <button
+            class="text-sm text-white bg-grey w-23 h-8 my-2 mr-2 cursor-pointer p-1 hover:bg-pink hover:text-black rounded-xl"
             onClick={() => {
               if (
                 window.confirm(

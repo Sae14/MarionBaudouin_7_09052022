@@ -3,19 +3,19 @@ import { NavLink } from "react-router-dom";
 
 const NavigationUnlog = () => {
   return (
-    <div className="navigation">
-      <ul>
+    <div>
+      <ul class="flex justify-center">
         <NavLink
           to="/signin"
           className={(nav) => (nav.isActive ? "nav-active" : "")}
         >
-          <li>Connexion</li>
+          <li class="px-3 pb-2 hover:font-bold">Connexion</li>
         </NavLink>
         <NavLink
           to="/signup"
           className={(nav) => (nav.isActive ? "nav-active" : "")}
         >
-          <li>Inscription</li>
+          <li class="px-3 pb-2 hover:font-bold">Inscription</li>
         </NavLink>
       </ul>
     </div>
