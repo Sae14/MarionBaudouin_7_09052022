@@ -15,16 +15,13 @@ const User = sequelize.define("user", {
   name: {
     type: DataTypes.STRING,
     unique: true,
-    // allownull: false,
   },
   email: {
     type: DataTypes.STRING,
     unique: true,
-    //  allownull: false,
   },
   password: {
     type: DataTypes.STRING,
-    // allownull: false,
   },
   role: {
     type: DataTypes.ENUM("USER", "ADMIN"),
@@ -61,9 +58,7 @@ const Like = sequelize.define("like");
 User.hasMany(Log, { onDelete: "cascade" });
 Log.belongsTo(User);
 
-User.hasMany(Post, {
-  onDelete: "cascade",
-});
+User.hasMany(Post);
 Post.belongsTo(User);
 
 Post.hasMany(Comment, { onDelete: "cascade" });

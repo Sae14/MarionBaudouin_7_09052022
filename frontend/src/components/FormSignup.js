@@ -7,6 +7,7 @@ const FormSignup = () => {
   const [password, setPassword] = useState("");
   const [success, setSuccess] = useState(false);
   const [errorPassword, setErrorPassword] = useState("");
+  const [errorLogs, setErrorLogs] = useState("");
   const [errorMail, setErrorMail] = useState(false);
   const [errorPseudo, setErrorPseudo] = useState(false);
 
@@ -40,10 +41,20 @@ const FormSignup = () => {
           setPassword("");
           setSuccess(true);
           setErrorPassword("");
+          setErrorLogs("");
         })
         .catch((error) => {
           console.log(error);
-          setErrorPassword(error.response.data.error);
+          if (
+            error.response.data.error.name == "SequelizeUniqueConstraintError"
+          ) {
+            setErrorLogs(error.response.data.error.name);
+          } else if (
+            error.response.data.error ==
+            "Le mot de passe n'est pas assez fort, veuillez le renforcer"
+          ) {
+            setErrorPassword(error.response.data.error);
+          }
         });
     }
   };
@@ -111,6 +122,9 @@ const FormSignup = () => {
         <span className="font-bold">
           {success &&
             "Inscription validée ! Vous pouvez dès à présent vous connecter"}
+        </span>
+        <span className="font-bold pb-3">
+          {errorLogs && "Le mail/pseudo que vous avez choisis existe déjà."}
         </span>
       </form>
     </div>

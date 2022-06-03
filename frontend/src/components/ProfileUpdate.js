@@ -91,6 +91,7 @@ const ProfileUpdate = ({ myToken, myId, myRole }) => {
           <img
             className="border-2 border-grey max-w-full rounded-md max-h-64 object-cover mb-3"
             src="./default-profile-picture.png"
+            alt="image de profil par défaut"
           ></img>
         )}
       </div>

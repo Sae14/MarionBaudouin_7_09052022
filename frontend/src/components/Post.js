@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { dateFormater } from "./Utils";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { editPost, deletePost } from "../feature/postSlice";
 import PostInteraction from "./PostInteraction";
 
@@ -60,7 +60,7 @@ const Post = ({ post, myToken, myId, myRole }) => {
   return (
     <div className="shadow-md mb-10 bg-pink rounded-lg p-2 w-full">
       <div className="flex">
-        {post.user.image ? (
+        {post.user && post.user.image ? (
           <img
             className="w-14 h-14 mr-2 rounded-2xl border-2 border-grey object-contain"
             src={post.user.image}
@@ -70,10 +70,13 @@ const Post = ({ post, myToken, myId, myRole }) => {
           <img
             className="w-14 h-14 mr-2 rounded-2xl border-2 border-grey object-contain"
             src="./default-profile-picture.png"
+            alt="image de profil par défaut"
           ></img>
         )}
         <div>
-          <h3 className="font-bold">{post.user.name}</h3>
+          <h3 className="font-bold">
+            {post.user ? post.user.name : "Compte supprimé"}
+          </h3>
           <p className="italic">Posté le {dateFormater(post.createdAt)}</p>
         </div>
       </div>

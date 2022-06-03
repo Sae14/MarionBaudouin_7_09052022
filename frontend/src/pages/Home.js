@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import Logo from "../components/Logo";
@@ -8,6 +8,8 @@ import Post from "../components/Post";
 import { useDispatch, useSelector } from "react-redux";
 import { setPostsData } from "../feature/postSlice";
 import PostForm from "../components/PostForm";
+import { setCommentsData } from "../feature/commentSlice";
+import { setLikesData } from "../feature/likeSlice";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -18,22 +20,50 @@ const Home = () => {
   const myToken = sessionStorage.getItem("mytoken");
 
   const getData = () => {
-    if (!myToken) {
-      navigate("/signin");
-    } else {
-      axios
-        .get(`http://localhost:${process.env.REACT_APP_PORT}/api/posts`, {
-          headers: {
-            Authorization: `Bearer ${myToken}`,
-          },
-        })
-        .then((res) => dispatch(setPostsData(res.data)))
-        .catch((error) => console.log(error));
-    }
+    axios
+      .get(`http://localhost:${process.env.REACT_APP_PORT}/api/posts`, {
+        headers: {
+          Authorization: `Bearer ${myToken}`,
+        },
+      })
+      .then((res) => dispatch(setPostsData(res.data)))
+      .catch((error) => console.log(error));
+  };
+
+  const getComments = () => {
+    axios
+      .get(`http://localhost:${process.env.REACT_APP_PORT}/api/comments`, {
+        headers: {
+          Authorization: `Bearer ${myToken}`,
+        },
+      })
+      .then((res) => {
+        dispatch(setCommentsData(res.data));
+      })
+      .catch((error) => console.log(error));
+  };
+
+  const getLikes = () => {
+    axios
+      .get(`http://localhost:${process.env.REACT_APP_PORT}/api/likes`, {
+        headers: {
+          Authorization: `Bearer ${myToken}`,
+        },
+      })
+      .then((res) => {
+        dispatch(setLikesData(res.data));
+      })
+      .catch((error) => console.log(error));
   };
 
   useEffect(() => {
-    getData();
+    if (!myToken) {
+      navigate("/signin");
+    } else {
+      getData();
+      getComments();
+      getLikes();
+    }
   }, []);
 
   return (

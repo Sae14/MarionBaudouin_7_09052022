@@ -4,8 +4,7 @@ const commentCtrl = require("../controllers/comment");
 const auth = require("../middleware/auth");
 
 // Mise en place des routes commentaires avec authentification obligatoire :
-
-router.get("/:id", auth, commentCtrl.getAllComments);
+router.get("/", auth, commentCtrl.getAllComments);
 router.get("/:id", auth, commentCtrl.getOneComment);
 router.post("/", auth, commentCtrl.createComment);
 router.put("/:id", auth, commentCtrl.modifyComment);

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { dateFormater } from "./Utils";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { editComment, deleteComment } from "../feature/commentSlice";
 
 const Comment = ({ comment, myToken, myId, myRole }) => {
@@ -57,6 +57,7 @@ const Comment = ({ comment, myToken, myId, myRole }) => {
           <img
             className="w-14 h-14 mr-2 rounded-2xl border-2 border-grey object-contain"
             src="./default-profile-picture.png"
+            alt="image de profil par défaut"
           ></img>
         )}
         <div>

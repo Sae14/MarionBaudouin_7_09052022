@@ -1,5 +1,4 @@
 import React from "react";
-import Footer from "../components/Footer";
 import FormSignin from "../components/FormSignin";
 import Logo from "../components/Logo";
 import NavigationUnlog from "../components/NavigationUnlog";

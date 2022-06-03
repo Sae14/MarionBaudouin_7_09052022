@@ -2,7 +2,6 @@ const { Comment, Post, User } = require("../models/index");
 
 exports.getAllComments = (req, res, next) => {
   Comment.findAll({
-    where: { postId: req.params.id },
     order: [["createdAt", "DESC"]],
     include: [{ model: User, attributes: ["name", "image"] }],
   })

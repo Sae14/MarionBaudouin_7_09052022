@@ -10,30 +10,38 @@ const Navigation = () => {
   return (
     <div>
       <ul className="flex justify-center">
-        <NavLink to="/" className={(nav) => (nav.isActive ? "nav-active" : "")}>
-          <li className="px-3 pb-2 hover:font-bold">
+        <li className="px-3 pb-2 hover:font-bold flex flex-col items-center">
+          <NavLink
+            to="/"
+            className={(nav) => (nav.isActive ? "nav-active" : "")}
+          >
             <IoMdHome />
             Accueil
-          </li>
-        </NavLink>
-        <NavLink
-          to="/profile"
-          className={(nav) => (nav.isActive ? "nav-active" : "")}
-        >
-          <li className="px-3 pb-2 hover:font-bold">
+          </NavLink>
+        </li>
+
+        <li className="px-3 pb-2 hover:font-bold flex flex-col items-center">
+          <NavLink
+            to="/profile"
+            className={(nav) => (nav.isActive ? "nav-active" : "")}
+          >
             <IoMdPerson />
             Profil
-          </li>
-        </NavLink>
-        <NavLink
-          to="/signin"
-          className={(nav) => (nav.isActive ? "nav-active" : "")}
+          </NavLink>
+        </li>
+
+        <li
+          className="px-3 pb-2 hover:font-bold flex flex-col items-center"
+          onClick={() => Logout()}
         >
-          <li className="px-3 pb-2 hover:font-bold" onClick={() => Logout()}>
+          <NavLink
+            to="/signin"
+            className={(nav) => (nav.isActive ? "nav-active" : "")}
+          >
             <IoMdLogOut />
             Déconnexion
-          </li>
-        </NavLink>
+          </NavLink>
+        </li>
       </ul>
     </div>
   );

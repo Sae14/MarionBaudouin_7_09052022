@@ -1,22 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Footer from "../components/Footer";
 import Logo from "../components/Logo";
 import Navigation from "../components/Navigation";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setUserData } from "../feature/userSlice";
 import ProfileUpdate from "../components/ProfileUpdate";
 
 const Profile = () => {
   const navigate = useNavigate();
-  // const [myProfile, setMyProfile] = useState([]);
   const dispatch = useDispatch();
   const myId = sessionStorage.getItem("myid");
   const myRole = sessionStorage.getItem("myrole");
   const myToken = sessionStorage.getItem("mytoken");
-
-  //setMyProfile(user.data))
 
   const getData = () => {
     if (!myToken) {
