@@ -84,6 +84,8 @@ exports.modifyPost = (req, res, next) => {
             postObject.image = `${req.protocol}://${req.get("host")}/images/${
               req.file.filename
             }`;
+          } else {
+            postObject.image = post.image;
           }
           Post.update(postObject, {
             where: {

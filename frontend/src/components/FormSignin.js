@@ -36,12 +36,12 @@ const FormSignin = () => {
   };
 
   return (
-    <div class=" m-2 p-2 rounded-lg bg-pink lg:w-2/4 lg:mx-auto xl:w-2/5">
-      <h2 class="py-4 mx-auto w-20 font-bold text-lg">Connexion</h2>
-      <form class="flex flex-col" onSubmit={(e) => handleLogin(e)}>
+    <div className="shadow-md m-2 p-2 rounded-lg bg-pink lg:w-2/4 lg:mx-auto xl:w-2/5">
+      <h2 className="py-4 mx-auto w-20 font-bold text-lg">Connexion</h2>
+      <form className="flex flex-col" onSubmit={(e) => handleLogin(e)}>
         <label htmlFor="email">Email</label>
         <input
-          class="my-4 rounded-md p-1"
+          className="my-4 rounded-md p-1"
           style={{
             border: error ? "2px solid red" : "2px solid #4E5166",
           }}
@@ -55,7 +55,7 @@ const FormSignin = () => {
         />
         <label htmlFor="password">Mot de passe</label>
         <input
-          class="my-4 rounded-md p-1"
+          className="my-4 rounded-md p-1"
           style={{
             border: error ? "2px solid red" : "2px solid #4E5166",
           }}
@@ -68,11 +68,11 @@ const FormSignin = () => {
           value={password}
         />
         <input
-          class="text-white bg-grey w-24 h-9 my-7 mx-auto cursor-pointer p-1 hover:bg-white hover:text-black rounded-xl"
+          className="border-solid border-2 text-white bg-grey w-24 h-9 my-7 mx-auto cursor-pointer p-1 hover:border-grey hover:bg-white hover:text-black rounded-xl"
           type="submit"
           value="Valider"
         />
-        <span class="font-bold pb-3">
+        <span className="font-bold pb-3">
           {error &&
             "Le mail ou le mot de passe ne correspondent pas, veuillez réessayer"}
         </span>

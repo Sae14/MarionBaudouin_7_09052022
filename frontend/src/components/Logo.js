@@ -4,7 +4,7 @@ const Logo = () => {
   return (
     <div>
       <img
-        class="mx-auto h-40"
+        className="mx-auto h-40"
         src="./icon-left-font-monochrome-black.png"
         alt="logo groupomania"
       ></img>

@@ -1,15 +1,29 @@
 import React from "react";
+import { FaLinkedin, FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer class="bg-red border-t-grey border-t-2 p-2">
-      <ul class="flex justify-center">
-        <li class="px-1">Icônes de</li>
-        <li class="px-1">réseaux sociaux</li>
+    <footer className="w-full m-0 bg-red border-t-grey border-t-2 p-2 flex flex-col items-center">
+      <h2>
+        Suivez-nous sur les réseaux. <br /> Votre espace, votre entreprise !
+      </h2>
+      <ul className="flex mt-4">
+        <li>
+          <FaLinkedin className="w-10 h-7 mx-2" />
+        </li>
+        <li>
+          <FaFacebook className="w-10 h-7 mx-2" />
+        </li>
+        <li>
+          <FaInstagram className="w-10 h-7 mx-2" />
+        </li>
+        <li>
+          <FaTwitter className="w-10 h-7 mx-2" />
+        </li>
       </ul>
 
       <img
-        class="mx-auto h-40"
+        className="h-40"
         src="./icon-left-font-monochrome-white.png"
         alt="logo groupomania"
       ></img>

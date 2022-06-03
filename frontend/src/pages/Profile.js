@@ -44,12 +44,12 @@ const Profile = () => {
 
   return (
     <div>
-      <header class="bg-red p-2 border-b-grey border-b-2">
+      <header className="bg-red p-2 border-b-grey border-b-2">
         <Logo />
         <Navigation />
       </header>
 
-      <h2 class="py-4 mx-auto w-14 font-bold text-lg ">Profil</h2>
+      <h2 className="py-4 mx-auto w-14 font-bold text-lg ">Profil</h2>
 
       <ProfileUpdate myToken={myToken} myId={myId} myRole={myRole} />
 

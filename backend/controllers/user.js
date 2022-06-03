@@ -115,6 +115,8 @@ exports.modifyUser = (req, res, next) => {
             userObject.image = `${req.protocol}://${req.get("host")}/images/${
               req.file.filename
             }`;
+          } else {
+            userObject.image = user.image;
           }
           User.update(userObject, {
             where: {

@@ -86,24 +86,24 @@ const PostInteraction = ({ post, myToken, myId, myRole }) => {
   };
 
   return (
-    <div class="border-t-4 border-t-white">
+    <div className="border-t-4 border-t-white">
       {likeToggle == 0 ? (
         <button
-          class="text-white bg-grey w-24 h-9 my-2 mr-2 cursor-pointer p-1 hover:bg-white hover:text-black rounded-xl"
+          className="border-solid border-2 text-white bg-grey w-24 h-9 my-2 mr-2 cursor-pointer p-1 hover:border-grey hover:bg-white hover:text-black rounded-xl"
           onClick={() => handleLike()}
         >
           J'aime
         </button>
       ) : (
         <button
-          class="bg-white text-black w-24 h-9 my-2 mr-2 cursor-pointer p-1 rounded-xl"
+          className="border-solid border-2 border-grey bg-white text-black w-24 h-9 my-2 mr-2 cursor-pointer p-1 rounded-xl"
           onClick={() => handleLike()}
         >
           J'aime
         </button>
       )}
       <button
-        class="text-white bg-grey w-24 h-9 my-2 cursor-pointer p-1 hover:bg-white hover:text-black rounded-xl"
+        className="border-solid border-2 text-white bg-grey w-24 h-9 my-2 cursor-pointer p-1 hover:border-grey hover:bg-white hover:text-black rounded-xl"
         onClick={() => checkComments()}
       >
         Commenter
@@ -114,7 +114,7 @@ const PostInteraction = ({ post, myToken, myId, myRole }) => {
           <div>
             <form onSubmit={(e) => handleSubmit(e)}>
               <textarea
-                class="w-full h-20 p-1 rounded-md mb-1"
+                className="w-full h-20 p-1 rounded-md mb-1"
                 style={{
                   border: error ? "2px solid red" : "2px solid #4E5166",
                 }}
@@ -124,19 +124,19 @@ const PostInteraction = ({ post, myToken, myId, myRole }) => {
               ></textarea>
 
               <input
-                class="text-white bg-grey w-24 h-9 my-2 cursor-pointer mr-2 p-1 hover:bg-white hover:text-black rounded-xl"
+                className="border-solid border-2 text-white bg-grey w-24 h-9 my-2 cursor-pointer mr-2 p-1 hover:border-grey hover:bg-white hover:text-black rounded-xl"
                 type="submit"
                 value="Publier"
               />
               {content ? (
                 <button
-                  class="text-sm text-white bg-grey w-23 h-8 my-2 cursor-pointer p-1 hover:bg-white hover:text-black rounded-xl"
+                  className="text-sm border-solid border-2 text-white bg-grey w-23 h-8 my-2 cursor-pointer p-1 hover:border-grey hover:bg-white hover:text-black rounded-xl"
                   onClick={resetPost}
                 >
                   Réinitialiser
                 </button>
               ) : null}
-              <span class="font-bold">
+              <span className="font-bold">
                 {error &&
                   "Veuillez envoyer un commentaire de moins de 280 caractères"}
               </span>
@@ -153,9 +153,9 @@ const PostInteraction = ({ post, myToken, myId, myRole }) => {
               />
             ))}
           </section>
-          <div class="border-t-4 border-t-white">
+          <div className="border-t-4 border-t-white">
             <button
-              class="text-white bg-grey w-24 h-9 my-7 mx-auto cursor-pointer p-1 hover:bg-white hover:text-black rounded-xl"
+              className="border-solid border-2 text-white bg-grey w-24 h-9 my-7 mx-auto cursor-pointer p-1 hover:border-grey hover:bg-white hover:text-black rounded-xl"
               onClick={() => setCommentToggle(false)}
             >
               Fermer le fil

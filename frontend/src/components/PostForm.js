@@ -53,10 +53,10 @@ const PostForm = ({ myToken, myId, myRole }) => {
   };
 
   return (
-    <div class="bg-pink mx-2 mb-16 rounded-lg p-2 lg:w-3/4 lg:mx-auto xl:w-3/5 2xl:w-2/5">
+    <div className=" shadow-md bg-pink mx-2 mb-16 rounded-lg p-2 lg:w-3/4 lg:mx-auto xl:w-3/5 2xl:w-2/5">
       <form onSubmit={(e) => handleSubmit(e)}>
         <textarea
-          class="w-full h-20 p-1 rounded-md mb-1"
+          className="w-full h-20 p-1 rounded-md mb-1"
           style={{
             border: error ? "2px solid red" : "2px solid #4E5166",
           }}
@@ -65,27 +65,27 @@ const PostForm = ({ myToken, myId, myRole }) => {
           value={content}
         ></textarea>
 
-        <div>
-          <label class="font-bold" htmlFor="file">
+        <div className="flex flex-col">
+          <label className="font-bold" htmlFor="file">
             Joindre une image :
           </label>
           <input
-            class="text-sm mb-2"
+            className="file:p-1 file:cursor-pointer file:text-sm file:mb-2 file:ml-1 file:rounded-full file:bg-grey file:text-white file:border-2 file:border-white file:border-solid hover:file:border-grey hover:file:bg-white hover:file:text-black"
             type="file"
             name="file"
             id="file"
             accept=".png, .jpg, .jpeg, .gif, .jfif"
             onChange={(e) => handlePicture(e)}
           />
-          <div class="border-t-4 border-t-white">
+          <div className="border-t-4 border-t-white">
             <input
-              class="text-white bg-grey w-24 h-9 my-2 cursor-pointer mr-2 p-1 hover:bg-white hover:text-black rounded-xl"
+              className="border-solid border-2 text-white bg-grey w-24 h-9 my-2 cursor-pointer mr-2 p-1 hover:border-grey hover:bg-white hover:text-black rounded-xl"
               type="submit"
               value="Publier"
             />
             {content || file ? (
               <button
-                class="text-sm text-white bg-grey w-23 h-8 my-2 cursor-pointer p-1 hover:bg-white hover:text-black rounded-xl"
+                className="text-sm border-solid border-2 text-white bg-grey w-23 h-8 my-2 cursor-pointer p-1 hover:border-grey hover:bg-white hover:text-black rounded-xl"
                 onClick={resetPost}
               >
                 Réinitialiser
@@ -93,7 +93,7 @@ const PostForm = ({ myToken, myId, myRole }) => {
             ) : null}
           </div>
         </div>
-        <span class="font-bold">
+        <span className="font-bold">
           {error && "Veuillez envoyer un message de moins de 280 caractères"}
         </span>
       </form>

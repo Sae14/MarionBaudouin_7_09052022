@@ -45,58 +45,58 @@ const Comment = ({ comment, myToken, myId, myRole }) => {
   };
 
   return (
-    <div class="my-3 bg-white rounded-lg p-2">
-      <div class="flex">
+    <div className="shadow-md my-3 bg-white rounded-lg p-2">
+      <div className="flex">
         {comment.user.image ? (
           <img
-            class="w-14 h-14 mr-2 rounded-2xl border-2 border-grey object-contain"
+            className="w-14 h-14 mr-2 rounded-2xl border-2 border-grey object-contain"
             src={comment.user.image}
             alt="image du profil"
           ></img>
         ) : (
           <img
-            class="w-14 h-14 mr-2 rounded-2xl border-2 border-grey object-contain"
+            className="w-14 h-14 mr-2 rounded-2xl border-2 border-grey object-contain"
             src="./default-profile-picture.png"
           ></img>
         )}
         <div>
-          <h3 class="font-bold">{comment.user.name}</h3>
-          <p class="italic">Posté le {dateFormater(comment.createdAt)}</p>
+          <h3 className="font-bold">{comment.user.name}</h3>
+          <p className="italic">Posté le {dateFormater(comment.createdAt)}</p>
         </div>
       </div>
 
       {isEditing ? (
         <div>
           <textarea
-            class="w-full h-20 p-1 rounded-md mb-1"
+            className="w-full h-20 p-1 rounded-md mb-1"
             defaultValue={editContent ? editContent : comment.content}
             autoFocus
             onChange={(e) => setEditContent(e.target.value)}
           ></textarea>
         </div>
       ) : (
-        <p class="py-4">{editContent ? editContent : comment.content}</p>
+        <p className="py-4">{editContent ? editContent : comment.content}</p>
       )}
 
       {myId == comment.userId || myRole == "ADMIN" ? (
         <div>
           {isEditing ? (
             <button
-              class="text-sm text-white bg-grey w-23 h-8 my-2 mr-2 cursor-pointer p-1 hover:bg-pink hover:text-black rounded-xl"
+              className="text-sm border-solid border-pink border-2 text-white bg-grey w-23 h-8 my-2 mr-2 cursor-pointer p-1 hover:border-grey hover:bg-pink hover:text-black rounded-xl"
               onClick={() => handleEdit()}
             >
               Valider
             </button>
           ) : (
             <button
-              class="text-sm text-white bg-grey w-23 h-8 my-2 mr-2 cursor-pointer p-1 hover:bg-pink hover:text-black rounded-xl"
+              className="text-sm border-solid border-pink border-2 text-white bg-grey w-23 h-8 my-2 mr-2 cursor-pointer p-1 hover:border-grey hover:bg-pink hover:text-black rounded-xl"
               onClick={() => setIsEditing(true)}
             >
               Modifier
             </button>
           )}
           <button
-            class="text-sm text-white bg-grey w-23 h-8 my-2 mr-2 cursor-pointer p-1 hover:bg-pink hover:text-black rounded-xl"
+            className="text-sm border-solid border-pink border-2 text-white bg-grey w-23 h-8 my-2 mr-2 cursor-pointer p-1 hover:border-grey hover:bg-pink hover:text-black rounded-xl"
             onClick={() => {
               if (
                 window.confirm(

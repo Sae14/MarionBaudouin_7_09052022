@@ -58,36 +58,36 @@ const Post = ({ post, myToken, myId, myRole }) => {
   };
 
   return (
-    <div class="mb-10 bg-pink rounded-lg p-2">
-      <div class="flex">
+    <div className="shadow-md mb-10 bg-pink rounded-lg p-2 w-full">
+      <div className="flex">
         {post.user.image ? (
           <img
-            class="w-14 h-14 mr-2 rounded-2xl border-2 border-grey object-contain"
+            className="w-14 h-14 mr-2 rounded-2xl border-2 border-grey object-contain"
             src={post.user.image}
             alt="image du profil"
           ></img>
         ) : (
           <img
-            class="w-14 h-14 mr-2 rounded-2xl border-2 border-grey object-contain"
+            className="w-14 h-14 mr-2 rounded-2xl border-2 border-grey object-contain"
             src="./default-profile-picture.png"
           ></img>
         )}
         <div>
-          <h3 class="font-bold">{post.user.name}</h3>
-          <p class="italic">Posté le {dateFormater(post.createdAt)}</p>
+          <h3 className="font-bold">{post.user.name}</h3>
+          <p className="italic">Posté le {dateFormater(post.createdAt)}</p>
         </div>
       </div>
       {isEditing ? (
-        <div class="flex flex-wrap py-2">
+        <div className="flex flex-wrap py-2">
           <textarea
-            class="w-full h-20 p-1 rounded-md mb-1"
+            className="w-full h-20 p-1 rounded-md mb-1"
             defaultValue={editContent ? editContent : post.content}
             autoFocus
             onChange={(e) => setEditContent(e.target.value)}
           ></textarea>
           <label htmlFor="file">Joindre une image : </label>
           <input
-            class="text-sm"
+            className="file:p-1 file:cursor-pointer file:text-sm file:mb-2 file:ml-1 file:rounded-full file:bg-grey file:text-white file:border-2 file:border-white file:border-solid hover:file:border-grey hover:file:bg-white hover:file:text-black"
             type="file"
             name="file"
             id="file"
@@ -96,11 +96,13 @@ const Post = ({ post, myToken, myId, myRole }) => {
           />
         </div>
       ) : (
-        <p class="py-4">{editContent ? editContent : post.content}</p>
+        <p className="w-full py-4">
+          {editContent ? editContent : post.content}
+        </p>
       )}
       {post.image ? (
         <img
-          class="max-w-full rounded-md max-h-64 object-cover mb-3"
+          className="border-2 border-grey max-w-full rounded-md max-h-64 object-cover mb-3"
           src={post.image}
           alt="image du post"
         ></img>
@@ -110,21 +112,21 @@ const Post = ({ post, myToken, myId, myRole }) => {
         <div>
           {isEditing ? (
             <button
-              class="text-sm text-white bg-grey w-23 h-8 my-2 mr-2 cursor-pointer p-1 hover:bg-white hover:text-black rounded-xl"
+              className="text-sm border-solid border-2 text-white bg-grey w-23 h-8 my-2 mr-2 cursor-pointer p-1 hover:border-grey hover:bg-white hover:text-black rounded-xl"
               onClick={() => handleEdit()}
             >
               Valider
             </button>
           ) : (
             <button
-              class="text-sm text-white bg-grey w-23 h-8 my-2 mr-2 cursor-pointer p-1 hover:bg-white hover:text-black rounded-xl"
+              className="text-sm border-solid border-2 text-white bg-grey w-23 h-8 my-2 mr-2 cursor-pointer p-1 hover:border-grey hover:bg-white hover:text-black rounded-xl"
               onClick={() => setIsEditing(true)}
             >
               Modifier
             </button>
           )}
           <button
-            class="text-sm text-white bg-grey w-23 h-8 my-2 cursor-pointer p-1 hover:bg-white hover:text-black rounded-xl"
+            className="text-sm border-solid border-2 text-white bg-grey w-23 h-8 my-2 cursor-pointer p-1 hover:border-grey hover:bg-white hover:text-black rounded-xl"
             onClick={() => {
               if (
                 window.confirm("Voulez-vous vraiment supprimer votre post ?")
