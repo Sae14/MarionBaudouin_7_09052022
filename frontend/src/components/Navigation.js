@@ -10,35 +10,32 @@ const Navigation = () => {
   return (
     <div>
       <ul className="flex justify-center">
-        <li className="px-3 pb-2 hover:font-bold flex flex-col items-center">
+        <li className="px-3 pb-2 hover:font-bold">
           <NavLink
             to="/"
             className={(nav) => (nav.isActive ? "nav-active" : "")}
           >
-            <IoMdHome />
+            <IoMdHome className="mx-auto h-5 w-5" />
             Accueil
           </NavLink>
         </li>
 
-        <li className="px-3 pb-2 hover:font-bold flex flex-col items-center">
+        <li className="px-3 pb-2 hover:font-bold">
           <NavLink
             to="/profile"
             className={(nav) => (nav.isActive ? "nav-active" : "")}
           >
-            <IoMdPerson />
+            <IoMdPerson className="mx-auto h-5 w-5" />
             Profil
           </NavLink>
         </li>
 
-        <li
-          className="px-3 pb-2 hover:font-bold flex flex-col items-center"
-          onClick={() => Logout()}
-        >
+        <li className="px-3 pb-2 hover:font-bold" onClick={() => Logout()}>
           <NavLink
             to="/signin"
             className={(nav) => (nav.isActive ? "nav-active" : "")}
           >
-            <IoMdLogOut />
+            <IoMdLogOut className="mx-auto h-5 w-5" />
             Déconnexion
           </NavLink>
         </li>

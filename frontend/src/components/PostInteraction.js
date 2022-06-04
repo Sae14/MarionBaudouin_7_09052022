@@ -6,6 +6,7 @@ import { addComment } from "../feature/commentSlice";
 import { addLike, deleteLike } from "../feature/likeSlice";
 import { IoMdThumbsUp } from "react-icons/io";
 import { BiLike } from "react-icons/bi";
+import { FaRegComment } from "react-icons/fa";
 
 const PostInteraction = ({ post, myToken, myId, myRole }) => {
   const dispatch = useDispatch();
@@ -103,10 +104,11 @@ const PostInteraction = ({ post, myToken, myId, myRole }) => {
         </button>
 
         <button
-          className="border-solid border-2 text-white bg-grey w-29 h-9 my-2 cursor-pointer p-1 hover:border-grey hover:bg-white hover:text-black rounded-xl"
+          className="flex border-solid border-2 text-white bg-grey w-29 h-9 my-2 cursor-pointer p-1 hover:border-grey hover:bg-white hover:text-black rounded-xl"
           onClick={() => checkComments()}
         >
           Commenter
+          <FaRegComment className="ml-2 w-15 h-6" />
           <span className="font-bold pl-2">
             {
               commentsData?.filter((comment) => comment.postId == post.id)

@@ -62,13 +62,13 @@ const Post = ({ post, myToken, myId, myRole }) => {
       <div className="flex">
         {post.user && post.user.image ? (
           <img
-            className="w-14 h-14 mr-2 rounded-2xl border-2 border-grey object-contain"
+            className="w-14 h-14 mr-2 rounded-2xl border-2 border-grey object-cover"
             src={post.user.image}
             alt="image du profil"
           ></img>
         ) : (
           <img
-            className="w-14 h-14 mr-2 rounded-2xl border-2 border-grey object-contain"
+            className="w-14 h-14 mr-2 rounded-2xl border-2 border-grey object-cover"
             src="./default-profile-picture.png"
             alt="image de profil par défaut"
           ></img>
@@ -105,7 +105,7 @@ const Post = ({ post, myToken, myId, myRole }) => {
       )}
       {post.image ? (
         <img
-          className="border-2 border-grey max-w-full rounded-md max-h-64 object-cover mb-3"
+          className="border-2 border-grey w-auto rounded-md max-h-45 object-cover  mb-3"
           src={post.image}
           alt="image du post"
         ></img>
