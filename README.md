@@ -8,20 +8,20 @@ Compétences évaluées :
 
 ## Installation : ## 
 
-1 - Cloner le repository via un git clone en copiant le lien ou en téléchargeant le .zip
+- Cloner le repository via un git clone en copiant le lien ou en téléchargeant le .zip
 
 
 ### DANS LE DOSSIER BACKEND ###
 
-2- Créer le dossier "images" à la racine du dossier backend
-3 - Renommer le fichier ".env.exemple" en ".env" puis l'ouvrir et indiquer ses différents identifiants, sauvegarder
-4 - Dans le terminal, exécuter `npm install`
+- Créer le dossier "images" à la racine du dossier backend
+- Renommer le fichier ".env.exemple" en ".env" puis l'ouvrir et indiquer ses différents identifiants, sauvegarder
+- Dans le terminal, exécuter `npm install`
 
 
 ### DANS LE DOSSIER FRONTEND ### 
 
-5 - Renommer le fichier ".env.local.exemple" en ".env.local" puis l'ouvrir et indiquer le même port utilisé pour l'API côté backend, sauvegarder
-6 - Dans un nouveau terminal, exécuter `npm install`
+- Renommer le fichier ".env.local.exemple" en ".env.local" puis l'ouvrir et indiquer le même port utilisé pour l'API côté backend, sauvegarder
+- Dans un nouveau terminal, exécuter `npm install`
 
 
 ## Lancement de l'application : ## 
