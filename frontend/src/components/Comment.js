@@ -41,7 +41,10 @@ const Comment = ({ comment, myToken, myId, myRole }) => {
           },
         }
       )
-      .then(() => dispatch(deleteComment(comment.id)));
+      .then(() => {
+        setEditContent("");
+        dispatch(deleteComment(comment.id));
+      });
   };
 
   return (
@@ -76,7 +79,7 @@ const Comment = ({ comment, myToken, myId, myRole }) => {
           ></textarea>
         </div>
       ) : (
-        <p className="py-4">{comment.content}</p>
+        <p className="py-4">{editContent ? editContent : comment.content}</p>
       )}
 
       {myId == comment.userId || myRole == "ADMIN" ? (

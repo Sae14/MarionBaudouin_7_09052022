@@ -54,7 +54,10 @@ const Post = ({ post, myToken, myId, myRole }) => {
           },
         }
       )
-      .then(() => dispatch(deletePost(post.id)));
+      .then(() => {
+        setEditContent("");
+        dispatch(deletePost(post.id));
+      });
   };
 
   return (
@@ -99,7 +102,9 @@ const Post = ({ post, myToken, myId, myRole }) => {
           />
         </div>
       ) : (
-        <p className="w-full py-4">{post.content}</p>
+        <p className="w-full py-4">
+          {editContent ? editContent : post.content}
+        </p>
       )}
       {post.image ? (
         <img
