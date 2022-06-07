@@ -123,7 +123,7 @@ const ProfileUpdate = ({ myToken, myId, myRole }) => {
           onChange={(e) => setEditBio(e.target.value)}
         ></textarea>
       ) : (
-        <p>{editBio ? editBio : myProfile?.bio}</p>
+        <p>{myProfile?.bio}</p>
       )}
 
       <div className="border-t-4 border-t-white mt-2">

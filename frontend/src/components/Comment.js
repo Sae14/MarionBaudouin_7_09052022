@@ -76,7 +76,7 @@ const Comment = ({ comment, myToken, myId, myRole }) => {
           ></textarea>
         </div>
       ) : (
-        <p className="py-4">{editContent ? editContent : comment.content}</p>
+        <p className="py-4">{comment.content}</p>
       )}
 
       {myId == comment.userId || myRole == "ADMIN" ? (
