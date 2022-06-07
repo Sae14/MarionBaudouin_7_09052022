@@ -99,9 +99,7 @@ const Post = ({ post, myToken, myId, myRole }) => {
           />
         </div>
       ) : (
-        <p className="w-full py-4">
-          {editContent ? editContent : post.content}
-        </p>
+        <p className="w-full py-4">{post.content}</p>
       )}
       {post.image ? (
         <img
