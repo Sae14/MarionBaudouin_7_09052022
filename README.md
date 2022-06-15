@@ -28,5 +28,6 @@ Compétences évaluées :
 
 - Une fois les 2 installations terminées, dans le dossier backend, exécuter : `nodemon start` ou `node server start`
 - Puis dans un second terminal, dans le dossier frontend, exécuter : `npm start`
-- Ne pas oublier d'importer le fichier de la base de données groupomania.sql : toutes les tables et leur structure sont incluses ainsi que la création de schema. Vous pouvez par exemple utiliser l'interface Workbench.
+- Evaluateur : Ne pas oublier d'importer le fichier de la base de données groupomania.sql : toutes les tables et leur structure sont incluses ainsi que la création de schema. Vous pouvez par exemple utiliser l'interface Workbench.
+- Testeur : Décommenter le bloc de code "sync" afin de créer automatiquement les tables sur le schéma "groupomania"
 

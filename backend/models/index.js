@@ -73,9 +73,9 @@ Like.belongsTo(Post);
 User.hasMany(Like, { onDelete: "cascade" });
 Like.belongsTo(User);
 
-// (async () => {
-//   await sequelize.sync({ force: false, alter: true });
-//   console.log("Tables for all models were just (re)created!");
-// })();
+(async () => {
+  await sequelize.sync({ force: false, alter: true });
+  console.log("Tables for all models were just (re)created!");
+})();
 
 module.exports = { sequelize, User, Post, Log, Comment, Like };
